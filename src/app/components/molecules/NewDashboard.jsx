@@ -1,8 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Bell, User, FileText, Heart, Lock, Menu } from 'lucide-react';
-import { useSession } from 'next-auth/react';
+import { useState } from 'react';
+import { Bell, User, Heart, Lock, Menu } from 'lucide-react';
 
 import StudentDashboardHome from '../organisms/StudentDashboardHome';
 import Container from '../atoms/Container';
@@ -14,17 +13,7 @@ import StudentNotifications from '../organisms/StudentNotifications';
 
 const NewDashboard = () => {
   const [activeTab, setActiveTab] = useState('Dashboard');
-  const { data: session, status } = useSession();
-
-  if (status === 'loading') {
-    return (
-      <Container>
-        <div className="flex justify-center items-center min-h-screen">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#0B6D76]"></div>
-        </div>
-      </Container>
-    );
-  }
+  
 
   const renderComponent = () => {
     switch (activeTab) {

@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { HiMenu, HiX, HiChevronDown, HiChevronRight } from 'react-icons/hi';
 import { FaUserCircle, FaHeart, FaUser, FaSignOutAlt, FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaEnvelope } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
-import { useSession, signOut } from 'next-auth/react';
 import { useWishlist } from '../../context/WishlistContext';
 import { useUserStore } from '../../../store/useUserStore';
 import Swal from 'sweetalert2';
@@ -91,7 +90,6 @@ const navCategories = [
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
-  const { data: session } = useSession();
   const router = useRouter();
   const { wishlist, fetchWishlist } = useWishlist();
   const [showWishlist, setShowWishlist] = useState(false);

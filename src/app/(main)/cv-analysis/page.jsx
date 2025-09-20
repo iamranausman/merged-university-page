@@ -12,7 +12,7 @@ export default function CvAnalysisPage() {
   const [activeTab, setActiveTab] = useState('extracted');
 
   // Redirect to login if not authenticated
-  useEffect(() => {
+  /*useEffect(() => {
     if (status === 'unauthenticated') {
       router.push('/student-login?redirect=/cv-analysis');
     }
@@ -30,7 +30,7 @@ export default function CvAnalysisPage() {
   // Show loading if not authenticated
   if (status === 'unauthenticated') {
     return null;
-  }
+  }*/
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];

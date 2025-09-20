@@ -18,8 +18,6 @@ export async function POST(req: NextRequest) {
         WHERE c.popular = 1 ORDER BY c.created_at DESC LIMIT 3`
     )
 
-    console.log(rows)
-
     if(rows.length > 0)
     {
         return NextResponse.json(

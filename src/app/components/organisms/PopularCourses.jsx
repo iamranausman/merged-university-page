@@ -6,7 +6,6 @@ import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { FaChevronLeft, FaChevronRight, FaPlane } from 'react-icons/fa';
-import { IoIosAirplane } from 'react-icons/io';
 
 import CourseCard from '../molecules/CourseCard';
 import Button from '../atoms/Button';
@@ -15,45 +14,29 @@ import Heading from '../atoms/Heading';
 import Paragraph from '../atoms/Paragraph';
 import Link from 'next/link';
 
-const PopularCourses = () => {
+const PopularCourses = ({data}) => {
   const [courses, setCourses] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch only 3 courses for the home page to improve performance
-    fetch('/api/frontend/limitedcourses', { 
-      method: "POST",
-      cache: 'no-store' })
-      .then(res => {
-        if (!res.ok) throw new Error('Failed to fetch courses');
-        return res.json();
-      })
-      .then(data => {
-        console.log('📚 Courses API response:', data);
-        console.log('📚 Total courses received:', data.data?.length || 0);
-        
-        // Since we're already limiting to 3 from API, just take the first 3 popular courses
-        const popular = (data.data || []).filter(course => course.popular).slice(0, 3);
-        console.log('📚 Popular courses found:', popular.length);
-        console.log('📚 Popular courses:', popular.map(c => ({ id: c.id, name: c.name, popular: c.popular })));
-        
-        // If no popular courses found, take first 3 regular courses as fallback
-        let finalCourses = popular;
-        if (popular.length === 0) {
-          finalCourses = (data.data || []).slice(0, 3);
-          console.log('📚 No popular courses found, using first 3 regular courses');
-        }
-        
-        // Ensure we never have more than 3 courses
-        finalCourses = finalCourses.slice(0, 3);
-        console.log('📚 Final courses to display:', finalCourses.length);
-        
-        setCourses(finalCourses);
-      })
-      .catch(err => setError(err.message))
-      .finally(() => setLoading(false));
-  }, []);
+    try
+    {
+      setLoading(true);
+
+      if(data.success){
+        setCourses(data.data);
+      } else {
+        console.log(data.message);
+        setError(data.message)
+      }
+
+    } catch (error){
+      console.log(error);
+    } finally{
+      setLoading(false);
+    }
+  }, [data]);
 
   return (
     <section className="relative py-16 overflow-hidden">

@@ -1,6 +1,5 @@
 
 // src/app/main/guides/[slug]/page.jsx
-import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import Container from '../../../components/atoms/Container';
@@ -9,12 +8,13 @@ import { FaFacebook, FaLinkedin, FaTwitter, FaWhatsapp } from 'react-icons/fa';
 
 
 // This function runs on the server to generate metadata
+
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   
   try {
     // Fetch guide data on the server using relative path
-    const response = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/frontend/getguides/${encodeURIComponent(slug)}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/frontend/getguides/${encodeURIComponent(slug)}`, {
       cache: 'force-cache' // Use cached data for metadata
     });
     
@@ -26,13 +26,6 @@ export async function generateMetadata({ params }) {
     }
     
     const result = await response.json();
-    
-    if (!result.success || !result.data) {
-      return {
-        title: 'Guide Not Found - University Portal',
-        description: 'The requested guide could not be found.'
-      };
-    }
     
     const guide = result.data;
     let seoData = {};
@@ -48,22 +41,36 @@ export async function generateMetadata({ params }) {
     
     // Determine if we should show meta tags
     const showMeta = seoData.show_meta !== 'off';
+
+    const canonical_url = `${process.env.NEXT_PUBLIC_APP_URL}/guides/${guide.slug}`
     
     return {
       title: showMeta && seoData.meta_title ? seoData.meta_title : guide.title,
       description: showMeta && seoData.meta_description ? seoData.meta_description : (guide.short_description || guide.title),
       keywords: showMeta && seoData.meta_keywords ? seoData.meta_keywords : '',
+      alternates: {
+        canonical: canonical_url,
+      },
       openGraph: {
         title: showMeta && seoData.meta_title ? seoData.meta_title : guide.title,
         description: showMeta && seoData.meta_description ? seoData.meta_description : (guide.short_description || guide.title),
         images: [guide.image || '/assets/placeholder-guide.png'],
+        url: canonical_url,
+        siteName: process.env.NEXT_PUBLIC_APP_WEBSITE_NAME,
         type: 'article',
       },
       twitter: {
         card: 'summary_large_image',
         title: showMeta && seoData.meta_title ? seoData.meta_title : guide.title,
         description: showMeta && seoData.meta_description ? seoData.meta_description : (guide.short_description || guide.title),
+        site: process.env.NEXT_PUBLIC_APP_WEBSITE_NAME,
+        url: canonical_url,
         images: [guide.image || '/assets/placeholder-guide.png'],
+      },
+      robots: {
+        index: true,
+        follow: true,
+        nocache: true,
       },
     };
   } catch (error) {
@@ -79,7 +86,7 @@ export async function generateMetadata({ params }) {
 async function getGuideData(slug) {
   try {
     // Use relative path for API call
-    const response = await fetch(`${process.env.APP_URL}/api/frontend/getguides/${encodeURIComponent(slug)}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/frontend/getguides/${encodeURIComponent(slug)}`, {
       cache: 'no-store' // Don't cache for individual page data
     });
     
@@ -105,7 +112,7 @@ async function getGuideData(slug) {
 
 async function getRelatedGuides(currentGuideId) {
   try {
-    const response = await fetch(`${process.env.APP_URL}/api/frontend/getguides`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/frontend/getguides`, {
       cache: 'force-cache' // Cache related guides
     });
     
@@ -135,7 +142,7 @@ export default async function GuideDetailPage({ params }) {
   const relatedGuides = await getRelatedGuides(guide.id);
   
   // Prepare share URLs
-  const currentUrl = `${process.env.APP_URL || 'http://localhost:3000'}/guides/${slug}`;
+  const currentUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/guides/${slug}`;
   const shareTitle = encodeURIComponent(guide.title);
 
   const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;

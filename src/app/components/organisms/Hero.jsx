@@ -12,10 +12,13 @@ const Hero = () => {
     <div className="">
       <section className="relative md:h-[74vh] sm:h-[95vh] h-[95vh]  flex items-center justify-center ">
       {/* Background Image */}
-      <img
-        src="/assets/hero.jpg"
+      <Image
+        src="/assets/hero.webp"
         alt="Hero Background"
         className="absolute top-0 left-0 w-full h-full object-center  object-cover z-0"
+        width={1920}
+        height={665}
+        priority
       />
       {/* Overlay */}
       <div className="absolute inset-0 bg-black opacity-50 z-10"></div>

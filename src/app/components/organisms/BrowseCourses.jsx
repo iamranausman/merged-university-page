@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const AccordionItem = ({ title, items, isOpen, toggle, onItemClick }) => {
   // Limit to exactly 10 items
@@ -162,10 +163,12 @@ const BrowseCoursesAccordion = () => {
           <div className="hidden lg:grid grid-cols-2 gap-6 auto-rows-fr">
             {/* Large Card with Badge */}
             <div className="relative overflow-hidden aspect-[3/4] md:aspect-auto h-96 lg:h-full min-h-[400px] lg:min-h-[600px] row-span-2 w-full">
-              <img
-                src="/assets/b1.png"
+              <Image
+                src="/assets/b1.webp"
                 alt="Main Image"
                 className="w-full h-full object-cover rounded-lg"
+                width={266}
+                height={399}
               />
               <div className="absolute inset-0"></div>
               <div className="absolute bottom-6 left-6 z-10">
@@ -182,18 +185,22 @@ const BrowseCoursesAccordion = () => {
             </div>
             {/* Medium Card 1 */}
             <div className="overflow-hidden aspect-[4/5] md:aspect-auto h-72 lg:h-72 w-full">
-              <img
-                src="/assets/b2.png"
+              <Image
+                src="/assets/b2.webp"
                 alt="Team collaboration"
                 className="w-full h-full object-cover rounded-lg"
+                width={266}
+                height={266}
               />
             </div>
             {/* Medium Card 2 */}
             <div className="overflow-hidden aspect-[4/5] md:aspect-auto mb-[-15%] w-full">
-              <img
-                src="/assets/b3.png"
+              <Image
+                src="/assets/b3.webp"
                 alt="Professional woman"
                 className="w-full h-full object-cover rounded-lg"
+                width={266}
+                height={320}
               />
             </div>
           </div>

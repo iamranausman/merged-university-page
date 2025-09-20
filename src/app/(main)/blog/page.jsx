@@ -1,12 +1,11 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import ArticleCard from '../../components/molecules/ArticleCard';
 import Button from '../../components/atoms/Button';
 import Heading from '../../components/atoms/Heading';
 import Container from '../../components/atoms/Container';
 import Paragraph from '../../components/atoms/Paragraph';
-import { IoSearch } from "react-icons/io5";
 import Pagination from '../../admin/components/Pagination';
  
 
@@ -183,6 +182,10 @@ const ArticlePage = () => {
 
   return (
     <div>
+      <head>
+        <title>All Articles - University Page</title>
+        <meta name="description" content="Browse, explore, Request Information from Articles." />
+      </head>
       {/* Hero Section */}
       <section className="relative md:h-[64vh] sm:h-[70vh] h-[85vh] flex items-center md:pt-[0px] sm:pt-[80px] pt-[80px] justify-center overflow-hidden">
         <img

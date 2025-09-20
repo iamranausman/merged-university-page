@@ -49,7 +49,7 @@ export async function POST(req: NextRequest, { params }: PageProps) {
                 {
                     success: true,
                     data: rows[0],
-                    realtedUniversities: relatedUniversities
+                    realtedUniversities: []
                 },
                 {
                     status: 200
@@ -61,7 +61,8 @@ export async function POST(req: NextRequest, { params }: PageProps) {
         return NextResponse.json(
             {
                 success: false,
-                message: "You Enter invlaid University"
+                message: "You Enter invlaid University",
+                data: []
             },
             {
                 status: 404

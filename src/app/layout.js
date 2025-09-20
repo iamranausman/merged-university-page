@@ -1,10 +1,7 @@
 'use client';
 import './globals.css';
 import Script from 'next/script';
-import Header from '../app/components/organisms/Header';
-import Footer from '../app/components/organisms/Footer';
 import { SearchProvider } from './context/SearchContext'; // Changed to named import
-import { AuthProvider } from './context/authContext';
 import { Providers } from '../lib/Provider';
 import { WishlistProvider } from './context/WishlistContext';
 import Loader from '../app/components/atoms/loader';
@@ -39,20 +36,16 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <head />
       <body className="antialiased">
-        <Providers>
-          <SearchProvider>
-            <AuthProvider>
-              <WishlistProvider>
-                <Script
-                  src="https://accounts.google.com/gsi/client"
-                  strategy="afterInteractive"
-                />
-                {loading && <Loader />}
-                {children}
-              </WishlistProvider>
-            </AuthProvider>
-          </SearchProvider>
-        </Providers>
+        <SearchProvider>
+          <WishlistProvider>
+            <Script
+              src="https://accounts.google.com/gsi/client"
+              strategy="afterInteractive"
+            />
+            {loading && <Loader />}
+            {children}
+          </WishlistProvider>
+        </SearchProvider>
       </body>
     </html>
   );

@@ -5,9 +5,7 @@ import Link from 'next/link';
 import { HiMenu, HiX, HiChevronDown } from 'react-icons/hi';
 import { FaUserCircle, FaHeart, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
-import { useSession, signOut } from 'next-auth/react';
 import Logo from '../atoms/Logo';
-import Button from '../atoms/Button';
 import { useWishlist } from '../../context/WishlistContext';
 import { MdCompare } from "react-icons/md";
 import { useUserStore } from '../../../store/useUserStore';
@@ -66,7 +64,7 @@ const navCategories = [
     href: '/about',
     items: [
       { name: 'About Us', href: '/aboutus' },
-      { name: 'Our Team', href: '/ourteam' },
+      { name: 'Our Team', href: '/our-team' },
       { name: 'Contact Us', href: '/contact-us' }
     ]
   },
@@ -94,15 +92,12 @@ const navCategories = [
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
-  const { data: session } = useSession();
   const router = useRouter();
   const { wishlist, fetchWishlist } = useWishlist();
   const [showWishlist, setShowWishlist] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
   const [touchDevice, setTouchDevice] = useState(false);
-  const [dropdownTimeout, setDropdownTimeout] = useState(null);
   const [wishlistLoaded, setWishlistLoaded] = useState(false);
-  const [userData, setUserData] = useState([]);
 
   const { user, fetchUser, logout, isLoggedIn } = useUserStore();
 
@@ -393,7 +388,7 @@ const Header = () => {
       {isOpen && (
         <div className="fixed top-[48px] left-0 w-full h-[calc(100vh-48px)] bg-[var(--brand-color)] text-white z-40 p-4 overflow-y-auto">
           <div className="grid grid-cols-4 mb-6 bg-[#0B6D76] rounded-lg p-2 text-center">
-            {!session ? (
+            {!isLoggedIn ? (
               <>
                 <Link href="/student-login" onClick={() => setIsOpen(false)} className="col-span-4 text-sm py-2 hover:bg-white/10">Student</Link>
                 <Link href="/consultant-register" onClick={() => setIsOpen(false)} className="col-span-4 text-sm py-2 hover:bg-white/10">Consultant</Link>
@@ -410,7 +405,7 @@ const Header = () => {
   <div className="absolute left-1/2 -translate-x-1/2 mt-2 w-36 bg-white border rounded shadow-md z-50 text-black">
     <div className="px-4 py-2 font-medium border-b text-gray-700">👋 {user?.name}</div>
     {/* Only show Dashboard if user is not admin */}
-    {session?.user?.role !== 'admin' && (
+    {user?.role !== 'admin' && (
       <button onClick={handleDashboard} className="block px-4 py-2 w-full text-left hover:bg-gray-100">Dashboard</button>
     )}
     <button onClick={handleLogout} className="block px-4 py-2 w-full text-left hover:bg-gray-100">Logout</button>

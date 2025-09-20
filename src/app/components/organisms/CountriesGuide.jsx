@@ -2,12 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import countriesData from '../../utils/countriesData';
 import Heading from '../atoms/Heading';
 import Container from '../atoms/Container';
 import Paragraph from '../atoms/Paragraph';
 import Button from '../atoms/Button';
-import SearchBar from './SearchBar';
 import Pagination from '../../admin/components/Pagination'; // <-- Import your pagination
 import { useRouter } from 'next/navigation';
 
@@ -56,10 +54,13 @@ const CountriesGuide = () => {
     <div className="w-full">
       {/* Hero Section */}
       <section className="relative md:h-[64vh] sm:h-[88vh] h-[88vh] flex items-center justify-center overflow-hidden pt-[80px]">
-        <img
-          src="/assets/guid.png"
+        <Image
+          src="/assets/guid.webp"
           alt="Hero Background"
-          className="absolute top-0 left-0 w-full h-full h-screen bg-contain object-center object-cover z-0"
+          className="absolute top-0 left-0 w-full h-screen bg-contain object-center object-cover z-0"
+          width={1920}
+          height={760}
+          priority
         />
         <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
         <div className="absolute inset-0 z-10 bg-gradient-to-b from-[rgba(0,0,0,0.1)] to-[rgba(0,0,0,0.9)]"></div>

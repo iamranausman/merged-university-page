@@ -14,7 +14,7 @@ const UniversityPhotos = ({ university }) => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="relative h-64 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
             <Image
-              src={university.feature_image || "/assets/logo1.png"}
+              src={university.logo || "/assets/logo1.png"}
               alt={`${university.name} campus photo`}
               fill
               className="object-cover w-[100%] hover:scale-105 transition-transform duration-300"

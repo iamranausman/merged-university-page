@@ -3,57 +3,33 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Container from '../atoms/Container';
-import Heading from '../atoms/Heading';
-import Paragraph from '../atoms/Paragraph';
 import ArticleCard from '../molecules/ArticleCard';
 import Button from '../atoms/Button';
+import Swal from 'sweetalert2';
 
-const LatestArticles = () => {
+const LatestArticles = ({data}) => {
   const [articles, setArticles] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // const fetchArticles = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const res = await fetch('/api/internal/blogs?limit=3&sort=desc');
-  //     const data = await res.json();
-
-  //     if (!res.ok || !data.success) {
-  //       throw new Error(data.message || 'Failed to fetch articles');
-  //     }
-
-  //     setArticles(data.data || []);
-  //   } catch (err) {
-  //     setError(err.message || 'Something went wrong');
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-const fetchArticles = async () => {
-  try {
-    setLoading(true);
-    const res = await fetch('/api/frontend/blogs/homeblog');
-    const data = await res.json();
-
-    if (!res.ok || !data.success) {
-      throw new Error(data.message || 'Failed to fetch articles');
-    }
-
-    setArticles(data.data);
-  } catch (err) {
-    setError(err.message || 'Something went wrong');
-  } finally {
-    setLoading(false);
-  }
-};
-
-
-
   useEffect(() => {
-    fetchArticles();
-  }, []);
+    try
+    {
+      setLoading(true);
+
+      if(data.success){
+        setArticles(data.data);
+      } else {
+        console.log(data.message);
+        setError(data.message)
+      }
+
+    } catch (error){
+      console.log(error);
+    } finally{
+      setLoading(false);
+    }
+  }, [data]);
 
   return (
     <section className="relative">

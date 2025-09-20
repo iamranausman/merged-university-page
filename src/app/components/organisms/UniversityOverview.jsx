@@ -20,7 +20,7 @@ const UniversityOverview = ({ university, relatedUniversities }) => {
         <div className="text-center mb-12">
           <Heading level={3}>Other universities and colleges</Heading>
         </div>
-        {relatedUniversities.length > 0 ? (
+        {relatedUniversities && relatedUniversities.length > 0 ? (
           <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
             {relatedUniversities.map(uni => (
               <UniversityCard 

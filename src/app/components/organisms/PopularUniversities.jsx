@@ -5,55 +5,30 @@ import Container from '../atoms/Container';
 import Heading from '../atoms/Heading';
 import Paragraph from '../atoms/Paragraph';
 import { useEffect, useState } from 'react';
-import { FaHeart, FaRegHeart } from 'react-icons/fa';
-import { useWishlist } from '../../context/WishlistContext';
-import Swal from 'sweetalert2';
 
-const PopularUniversities = () => {
+const PopularUniversities = ({data}) => {
   const [universities, setUniversities] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { toggleWishlist, isWishlisted } = useWishlist();
 
   useEffect(() => {
+    try
+    {
+      setLoading(true);
 
-    const fetchUnivertities = async() =>{
-      try{
-
-        setLoading(true);
-
-        const response = await fetch('/api/frontend/getuniversities', { 
-          method: 'POST',
-          cache: 'no-store' 
-        });
-
-        if(!response.ok){
-          const data = await response.json();
-
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: data.message || 'An error occurred',
-          });
-
-          return;
-
-        }
-
-        const data = await response.json();
-
+      if(data.success){
         setUniversities(data.data);
-      } catch (error) {
-        setError(error.message);
-        setLoading(false);
-      } finally {
-        setLoading(false);
+      } else {
+        console.log(data.message);
+        setError(data.message)
       }
+
+    } catch (error){
+      console.log(error);
+    } finally{
+      setLoading(false);
     }
-
-    fetchUnivertities()
-
-  }, []);
+  }, [data]);
 
   return (
     <section className="bg-white">
@@ -87,18 +62,6 @@ const PopularUniversities = () => {
                 const details = { id, label: 'University', name };
                 return (
                   <div key={id} className="flex flex-col items-center relative">
-                    {/* Heart icon top right */}
-                    {/* <span
-        className="absolute top-2 right-2 z-10 cursor-pointer bg-white rounded-full p-1 shadow hover:bg-red-50"
-        onClick={() => toggleWishlist(details)}
-        title={isWishlisted(details) ? 'Remove from wishlist' : 'Add to wishlist'}
-      >
-        {isWishlisted(details) ? (
-          <FaHeart className="text-red-500" />
-        ) : (
-          <FaRegHeart className="text-gray-400" />
-        )}
-      </span> */}
                     <UniversityCard
                       name={name}
                       image={image}

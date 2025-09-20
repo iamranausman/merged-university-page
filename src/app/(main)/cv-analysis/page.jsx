@@ -1,11 +1,9 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
 import { FaUpload, FaFilePdf, FaFileWord, FaFileAlt, FaSpinner, FaUser, FaGraduationCap, FaBriefcase, FaCode, FaProjectDiagram, FaFile } from 'react-icons/fa';
 
 export default function CvAnalysisPage() {
-  const { data: session, status } = useSession();
   const router = useRouter();
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);

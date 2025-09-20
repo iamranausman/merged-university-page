@@ -12,7 +12,6 @@ import {
   FaWhatsapp, 
   FaMapMarkerAlt,
   FaClock,
-  FaEnvelope
 } from 'react-icons/fa';
 import { 
   BsInstagram 
@@ -20,7 +19,6 @@ import {
 import { 
   MdOutlineMail, 
   MdOutlinePhone,
-  MdMessage
 } from 'react-icons/md';
 
 // Custom Components

@@ -1,98 +1,161 @@
-// import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram, FaWhatsapp } from "react-icons/fa";
-
-
-
-
-
-// export const SocialIcons = () => (
-//   <div className=" grid xl:grid-cols-1 lg:grid-cols-1 md:grid-cols-5 sm:grid-cols-5 grid-cols-5 gap-4 text-sm">
-//     <a className="flex items-center text-[14px] gap-[10px]" href="https://www.facebook.com/universitiespagelahore"><div className="bg-[var(--brand-color)] w-[40px] h-[40px] rounded-full flex justify-center items-center text-white text-[16px]"><FaFacebook /></div> <div className=" md:block hidden">Facebook</div></a>
-//     <a className="flex items-center text-[14px] gap-[10px]" href="https://twitter.com/UniversitiesPa1"><div className="bg-[var(--brand-color)] w-[40px] h-[40px] rounded-full flex justify-center items-center text-white text-[16px]"><FaTwitter /></div> <div className=" md:block hidden">Twitter</div></a>
-//     <a className="flex items-center text-[14px] gap-[10px]" href="https://linkedin.com/in/universities-page-4728301b5"><div className="bg-[var(--brand-color)] w-[40px] h-[40px] rounded-full flex justify-center items-center text-white text-[16px]"><FaLinkedin /></div> <div className=" md:block hidden">LinkedIn</div></a>
-//     <a className="flex items-center text-[14px] gap-[10px]" href="https://www.instagram.com/universitiespage_official/"><div className="bg-[var(--brand-color)] w-[40px] h-[40px] rounded-full flex justify-center items-center text-white text-[16px]"><FaInstagram /></div><div className=" md:block hidden">Instagram</div> </a>
-//     <a className="flex items-center text-[14px] gap-[10px]" href="https://whatsapp.com/channel/0029Va7vJOYJkK79737At844"><div className="bg-[var(--brand-color)] w-[40px] h-[40px] rounded-full flex justify-center items-center text-white text-[16px]"><FaWhatsapp /></div> <div className=" md:block hidden">Whatsapp</div></a>
-//   </div>
-// ); 
-
-
-
-import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { 
+  FaFacebook, 
+  FaTwitter, 
+  FaLinkedin, 
+  FaInstagram, 
+  FaWhatsapp 
+} from "react-icons/fa";
 
 export const SocialIcons = () => (
-  <div className="grid xl:grid-cols-1 lg:grid-cols-1 md:grid-cols-5 sm:grid-cols-5 grid-cols-5 gap-4 text-sm">
+  <div className="flex justify-center items-center gap-3">
     {/* Facebook */}
     <a 
-      className="flex items-center text-[14px] gap-[10px]" 
+      className="group relative flex items-center justify-center w-10 h-10 rounded-full bg-teal-600 text-white transition-all duration-300 hover:bg-blue-600 hover:scale-110 hover:shadow-lg"
       href="https://www.facebook.com/universitiespagelahore" 
       target="_blank" 
       rel="noopener noreferrer"
       aria-label="Visit our Facebook page"
       title="Facebook"
     >
-      <div className="bg-[var(--brand-color)] w-[40px] h-[40px] rounded-full flex justify-center items-center text-white text-[16px]">
-        <FaFacebook />
-      </div>
-      <div className="md:block hidden">Facebook</div>
+      <FaFacebook className="text-lg" />
+      <span className="absolute -bottom-7 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gray-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
+        Facebook
+      </span>
     </a>
 
     {/* Twitter */}
     <a 
-      className="flex items-center text-[14px] gap-[10px]" 
+      className="group relative flex items-center justify-center w-10 h-10 rounded-full bg-teal-600 text-white transition-all duration-300 hover:bg-blue-400 hover:scale-110 hover:shadow-lg"
       href="https://twitter.com/UniversitiesPa1" 
       target="_blank" 
       rel="noopener noreferrer"
       aria-label="Visit our Twitter profile"
       title="Twitter"
     >
-      <div className="bg-[var(--brand-color)] w-[40px] h-[40px] rounded-full flex justify-center items-center text-white text-[16px]">
-        <FaTwitter />
-      </div>
-      <div className="md:block hidden">Twitter</div>
+      <FaTwitter className="text-lg" />
+      <span className="absolute -bottom-7 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gray-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
+        Twitter
+      </span>
     </a>
 
     {/* LinkedIn */}
     <a 
-      className="flex items-center text-[14px] gap-[10px]" 
+      className="group relative flex items-center justify-center w-10 h-10 rounded-full bg-teal-600 text-white transition-all duration-300 hover:bg-blue-800 hover:scale-110 hover:shadow-lg"
       href="https://linkedin.com/in/universities-page-4728301b5" 
       target="_blank" 
       rel="noopener noreferrer"
       aria-label="Visit our LinkedIn page"
       title="LinkedIn"
     >
-      <div className="bg-[var(--brand-color)] w-[40px] h-[40px] rounded-full flex justify-center items-center text-white text-[16px]">
-        <FaLinkedin />
-      </div>
-      <div className="md:block hidden">LinkedIn</div>
+      <FaLinkedin className="text-lg" />
+      <span className="absolute -bottom-7 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gray-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
+        LinkedIn
+      </span>
     </a>
 
     {/* Instagram */}
     <a 
-      className="flex items-center text-[14px] gap-[10px]" 
+      className="group relative flex items-center justify-center w-10 h-10 rounded-full bg-teal-600 text-white transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-600 hover:via-pink-600 hover:to-orange-500 hover:scale-110 hover:shadow-lg"
       href="https://www.instagram.com/universitiespage_official/" 
       target="_blank" 
       rel="noopener noreferrer"
       aria-label="Visit our Instagram profile"
       title="Instagram"
     >
-      <div className="bg-[var(--brand-color)] w-[40px] h-[40px] rounded-full flex justify-center items-center text-white text-[16px]">
-        <FaInstagram />
-      </div>
-      <div className="md:block hidden">Instagram</div>
+      <FaInstagram className="text-lg" />
+      <span className="absolute -bottom-7 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gray-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
+        Instagram
+      </span>
     </a>
 
     {/* WhatsApp */}
     <a 
-      className="flex items-center text-[14px] gap-[10px]" 
+      className="group relative flex items-center justify-center w-10 h-10 rounded-full bg-teal-600 text-white transition-all duration-300 hover:bg-green-500 hover:scale-110 hover:shadow-lg"
       href="https://whatsapp.com/channel/0029Va7vJOYJkK79737At844" 
       target="_blank" 
       rel="noopener noreferrer"
       aria-label="Contact us on WhatsApp"
       title="WhatsApp"
     >
-      <div className="bg-[var(--brand-color)] w-[40px] h-[40px] rounded-full flex justify-center items-center text-white text-[16px]">
+      <FaWhatsapp className="text-lg" />
+      <span className="absolute -bottom-7 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gray-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
+        WhatsApp
+      </span>
+    </a>
+  </div>
+);
+
+// Alternative version with tooltips on the side for larger screens
+export const SocialIconsWithLabels = () => (
+  <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+    {/* Facebook */}
+    <a 
+      className="group relative flex items-center gap-3 text-sm text-gray-700 hover:text-blue-600 transition-colors"
+      href="https://www.facebook.com/universitiespagelahore" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      aria-label="Visit our Facebook page"
+    >
+      <div className="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center text-white group-hover:bg-blue-600 transition-colors">
+        <FaFacebook />
+      </div>
+      <span className="hidden sm:block">Facebook</span>
+    </a>
+
+    {/* Twitter */}
+    <a 
+      className="group relative flex items-center gap-3 text-sm text-gray-700 hover:text-blue-400 transition-colors"
+      href="https://twitter.com/UniversitiesPa1" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      aria-label="Visit our Twitter profile"
+    >
+      <div className="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center text-white group-hover:bg-blue-400 transition-colors">
+        <FaTwitter />
+      </div>
+      <span className="hidden sm:block">Twitter</span>
+    </a>
+
+    {/* LinkedIn */}
+    <a 
+      className="group relative flex items-center gap-3 text-sm text-gray-700 hover:text-blue-800 transition-colors"
+      href="https://linkedin.com/in/universities-page-4728301b5" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      aria-label="Visit our LinkedIn page"
+    >
+      <div className="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center text-white group-hover:bg-blue-800 transition-colors">
+        <FaLinkedin />
+      </div>
+      <span className="hidden sm:block">LinkedIn</span>
+    </a>
+
+    {/* Instagram */}
+    <a 
+      className="group relative flex items-center gap-3 text-sm text-gray-700 hover:text-pink-600 transition-colors"
+      href="https://www.instagram.com/universitiespage_official/" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      aria-label="Visit our Instagram profile"
+    >
+      <div className="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center text-white group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:via-pink-600 group-hover:to-orange-500 transition-colors">
+        <FaInstagram />
+      </div>
+      <span className="hidden sm:block">Instagram</span>
+    </a>
+
+    {/* WhatsApp */}
+    <a 
+      className="group relative flex items-center gap-3 text-sm text-gray-700 hover:text-green-600 transition-colors"
+      href="https://whatsapp.com/channel/0029Va7vJOYJkK79737At844" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      aria-label="Contact us on WhatsApp"
+    >
+      <div className="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center text-white group-hover:bg-green-500 transition-colors">
         <FaWhatsapp />
       </div>
-      <div className="md:block hidden">WhatsApp</div>
+      <span className="hidden sm:block">WhatsApp</span>
     </a>
   </div>
 );

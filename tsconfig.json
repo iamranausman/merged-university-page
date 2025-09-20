@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/app/(main)/free-consultation/page.tsx", "src/app/api/internal/university/route.ts", "src/app/api/internal/visa-types/route.ts", "src/app/api/internal/blogs/route.js", "src/app/(main)/guides/[slug]/page.jsx", "src/app/(main)/student-register/page.jsx", "src/app/components/clientcomponents/ArticleDetailPage.jsx"  ],
+, "src/app/(main)/free-consultation/page.tsx", "src/app/api/internal/university/route.ts", "src/app/api/internal/visa-types/route.ts", "src/app/api/internal/blogs/route.js", "src/app/(main)/guides/[slug]/page.jsx", "src/app/(main)/student-register/page.jsx", "src/app/components/clientcomponents/ArticleDetailPage.jsx", "src/app/components/organisms/Footer.jsx", "src/app/(main)/contact-us/page.tsx"  ],
   "exclude": [
     "node_modules"
   ]

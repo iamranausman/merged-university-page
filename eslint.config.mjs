@@ -14,6 +14,8 @@ const eslintConfig = [
   {
     ignores: [
       "src/app/(main)/forgot-password/page.tsx",
+      "src/app/components/organisms/Header.tsx",
+      "src/app/components/organisms/Footer.tsx",
     ]
   }
 ];

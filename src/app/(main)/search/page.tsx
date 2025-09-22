@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import debounce from 'lodash/debounce';
 
-const SearchPage = () => {
+const SearchPageInner = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   
@@ -629,4 +629,10 @@ const [filters, setFilters] = useState<FilterState>({
   );
 };
 
-export default SearchPage;
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Loading search page…</div>}>
+      <SearchPageInner />
+    </Suspense>
+  );
+}

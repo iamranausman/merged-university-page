@@ -108,7 +108,7 @@ export default function ArticleDetailPage({singleData, blogData}) {
       setLoading(true);
 
       if(!singleData.success){
-        throw new Error(uniData.message);
+        throw new Error(singleData.message);
       }
 
       if(singleData.success){
@@ -438,10 +438,6 @@ export default function ArticleDetailPage({singleData, blogData}) {
     </div>
   );
 
-  const imageUrl = article.image?.startsWith('/')
-    ? `${API_BASE_URL}${article.image}`
-    : article.image;
-
   return (
     <div className="pb-20">
       <Container>
@@ -483,16 +479,16 @@ export default function ArticleDetailPage({singleData, blogData}) {
         </div>
 
         <div className="bg-none mt-8 rounded-lg overflow-hidden">
-          {imageUrl ? (
+          {article.image ? (
             <div className="relative w-full h-[55vh] mb-6">
               <Image
-                src={imageUrl}
+                src={article.image || '/assets/c1.avif'}
                 alt={article.title}
                 fill
                 className="object-cover"
                 priority
                 onError={(e) => {
-                  console.error("Image failed to load:", imageUrl);
+                  console.error("Image failed to load:", article.image);
                   e.currentTarget.parentElement.innerHTML = (
                     '<div class="w-full h-full bg-gray-200 flex items-center justify-center">' +
                     '<span class="text-gray-500">Image not available</span>' +
@@ -543,29 +539,29 @@ export default function ArticleDetailPage({singleData, blogData}) {
               }
             }}
           >
-            {blogs.map(({ id, title, image }) => (
-              <SwiperSlide key={id}>
+            {blogs.map((blog) => (
+              <SwiperSlide key={blog.id}>
                 <div 
                   className="flex flex-col justify-between bg-[#eef6f7] p-4 rounded-[40px] shadow-md h-[450px] hover:shadow-lg transition-shadow cursor-pointer"
-                  onClick={() => router.push(`/${title.toLowerCase().replace(/\s+/g, '-')}`)}
+                  onClick={() => router.push(`/${blog.slug}`)}
                   role="button"
                   tabIndex={0}
-                  onKeyDown={(e) => e.key === 'Enter' && router.push(`/${title.toLowerCase().replace(/\s+/g, '-')}`)}
+                  onKeyDown={(e) => e.key === 'Enter' && router.push(`/${blog.slug}`)}
                 >
                   <div className="flex items-center gap-4 mb-[20px] min-h-[80px]">
                     <div className="w-[50px] h-[50px] bg-white text-[#006666] font-semibold flex items-center justify-center rounded-[40px] border-b-4 border-[#0B6D76] shadow">
-                      {id.toString().padStart(2, "0")}
+                      {blog.id}
                     </div>
                     <div className="flex-1">
-                      <Heading level={4}>{title}</Heading>
+                      <Heading level={4}>{blog.title}</Heading>
                     </div>
                   </div>
                   <div className="flex-grow" />
                   <div className="w-full overflow-hidden rounded-tr-[82px] rounded-br-[82px] rounded-bl-[82px] mt-auto">
                     <div className="relative w-full h-[300px]">
                       <Image
-                        src={image}
-                        alt={title}
+                        src={blog.image}
+                        alt={blog.title}
                         fill
                         className="object-cover rounded-tr-[82px] rounded-br-[82px] rounded-bl-[82px] hover:scale-105 transition-transform"
                       />

@@ -25,6 +25,7 @@ export async function POST(req: NextRequest, { params }: PageProps) {
         c.university_id AS university_id,
         c.subject_id AS subject_id,
         c.qualification AS qualification,
+        c.languages AS language,
         ud.name AS university_name,
         ud.logo AS universityLogo,
         ud.intake AS intake,
@@ -75,7 +76,8 @@ export async function POST(req: NextRequest, { params }: PageProps) {
           return NextResponse.json(
               {
                   success: true,
-                  data: course
+                  data: course,
+                  relatedcourse: []
               },
               {
                   status: 200

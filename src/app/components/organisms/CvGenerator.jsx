@@ -377,8 +377,11 @@ export default function ResumeBuilder({ studentId }) {
         throw new Error('Failed to upload image');
       }
 
+      
+
       const data = await response.json();
-      return data.url;
+
+      return data.uploadPath;
     } catch (error) {
       console.error('Error uploading image:', error);
       throw error;
@@ -953,7 +956,7 @@ export default function ResumeBuilder({ studentId }) {
               <div className="relative">
                 {personalInfo.profileImage ? (
                   <img
-                    src={personalInfo.profileImage}
+                    src={`https://${process.env.NEXT_PUBLIC_AWS_BUCKET}.s3.${process.env.NEXT_PUBLIC_AWS_DEFAULT_REGION}.amazonaws.com/${personalInfo.profileImage}`}
                     alt="Profile"
                     className="w-[150px] h-[150px] rounded-full object-cover border-4 border-teal-200"
                   />

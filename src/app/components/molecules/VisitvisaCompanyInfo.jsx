@@ -1,3 +1,5 @@
+'use client'
+
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import Paragraph from "../atoms/Paragraph";
 import Heading from "../atoms/Heading";

@@ -1895,8 +1895,104 @@
       "size": 110732,
       "mimeType": "image/webp",
       "uploadedAt": "2025-09-15T06:44:41.456Z"
+    },
+    {
+      "id": "1758534325878",
+      "filename": "cover image_1758534324444.jpg",
+      "originalName": "cover image.jpg",
+      "s3Key": "public/assets_frontend/images/resume_profiles//cover image_1758534324444.jpg",
+      "s3Url": "https://unipage-website.s3.eu-north-1.amazonaws.com/public/assets_frontend/images/resume_profiles//cover image_1758534324444.jpg",
+      "uploadType": "cv-profile-picture",
+      "uploadPath": "public/assets_frontend/images/resume_profiles/",
+      "size": 373039,
+      "mimeType": "image/jpeg",
+      "uploadedAt": "2025-09-22T09:45:25.878Z"
+    },
+    {
+      "id": "1758534370939",
+      "filename": "b1_1758534370184.webp",
+      "originalName": "b1.webp",
+      "s3Key": "public/assets_frontend/images/resume_profiles//b1_1758534370184.webp",
+      "s3Url": "https://unipage-website.s3.eu-north-1.amazonaws.com/public/assets_frontend/images/resume_profiles//b1_1758534370184.webp",
+      "uploadType": "cv-profile-picture",
+      "uploadPath": "public/assets_frontend/images/resume_profiles/",
+      "size": 14318,
+      "mimeType": "image/webp",
+      "uploadedAt": "2025-09-22T09:46:10.939Z"
+    },
+    {
+      "id": "1758534398624",
+      "filename": "laser_wood_480x480_1758534397697.webp",
+      "originalName": "laser_wood_480x480.webp",
+      "s3Key": "public/assets_frontend/images/resume_profiles//laser_wood_480x480_1758534397697.webp",
+      "s3Url": "https://unipage-website.s3.eu-north-1.amazonaws.com/public/assets_frontend/images/resume_profiles//laser_wood_480x480_1758534397697.webp",
+      "uploadType": "cv-profile-picture",
+      "uploadPath": "public/assets_frontend/images/resume_profiles/",
+      "size": 34124,
+      "mimeType": "image/webp",
+      "uploadedAt": "2025-09-22T09:46:38.624Z"
+    },
+    {
+      "id": "1758534438239",
+      "filename": "b2_1758534437390.webp",
+      "originalName": "b2.webp",
+      "s3Key": "public/assets_frontend/images/resume_profiles//b2_1758534437390.webp",
+      "s3Url": "https://unipage-website.s3.eu-north-1.amazonaws.com/public/assets_frontend/images/resume_profiles//b2_1758534437390.webp",
+      "uploadType": "cv-profile-picture",
+      "uploadPath": "public/assets_frontend/images/resume_profiles/",
+      "size": 13404,
+      "mimeType": "image/webp",
+      "uploadedAt": "2025-09-22T09:47:18.239Z"
+    },
+    {
+      "id": "1758534518401",
+      "filename": "AppleCiderVinegarGummies.WB.Website_ProductPage_LiquidBanner_1500x1500px_20230430_ms_e24c8767-55a7-4bb0-8282-6ed09dcfb123_1920x_1758534517149.webp",
+      "originalName": "AppleCiderVinegarGummies.WB.Website_ProductPage_LiquidBanner_1500x1500px_20230430_ms_e24c8767-55a7-4bb0-8282-6ed09dcfb123_1920x.webp",
+      "s3Key": "public/assets_frontend/images/resume_profiles//AppleCiderVinegarGummies.WB.Website_ProductPage_LiquidBanner_1500x1500px_20230430_ms_e24c8767-55a7-4bb0-8282-6ed09dcfb123_1920x_1758534517149.webp",
+      "s3Url": "https://unipage-website.s3.eu-north-1.amazonaws.com/public/assets_frontend/images/resume_profiles//AppleCiderVinegarGummies.WB.Website_ProductPage_LiquidBanner_1500x1500px_20230430_ms_e24c8767-55a7-4bb0-8282-6ed09dcfb123_1920x_1758534517149.webp",
+      "uploadType": "cv-profile-picture",
+      "uploadPath": "public/assets_frontend/images/resume_profiles/",
+      "size": 138032,
+      "mimeType": "image/webp",
+      "uploadedAt": "2025-09-22T09:48:38.401Z"
+    },
+    {
+      "id": "1758534719447",
+      "filename": "Surviving-vs-living-1024x574_1758534718328.webp",
+      "originalName": "Surviving-vs-living-1024x574.webp",
+      "s3Key": "public/assets_frontend/images/resume_profiles//Surviving-vs-living-1024x574_1758534718328.webp",
+      "s3Url": "https://unipage-website.s3.eu-north-1.amazonaws.com/public/assets_frontend/images/resume_profiles//Surviving-vs-living-1024x574_1758534718328.webp",
+      "uploadType": "cv-profile-picture",
+      "uploadPath": "public/assets_frontend/images/resume_profiles/",
+      "size": 65188,
+      "mimeType": "image/webp",
+      "uploadedAt": "2025-09-22T09:51:59.447Z"
+    },
+    {
+      "id": "1758534770084",
+      "filename": "guid_1758534768500.png",
+      "originalName": "guid.png",
+      "s3Key": "public/assets_frontend/images/resume_profiles//guid_1758534768500.png",
+      "s3Url": "https://unipage-website.s3.eu-north-1.amazonaws.com/public/assets_frontend/images/resume_profiles//guid_1758534768500.png",
+      "uploadType": "cv-profile-picture",
+      "uploadPath": "public/assets_frontend/images/resume_profiles/",
+      "size": 421416,
+      "mimeType": "image/png",
+      "uploadedAt": "2025-09-22T09:52:50.084Z"
+    },
+    {
+      "id": "1758535514549",
+      "filename": "Plantar_Fasciitis_When_Should_You_See_a_Foot_Doctor_638198254502047337_1758535512748.png",
+      "originalName": "Plantar_Fasciitis_When_Should_You_See_a_Foot_Doctor_638198254502047337.png",
+      "s3Key": "public/assets_frontend/images/resume_profiles//Plantar_Fasciitis_When_Should_You_See_a_Foot_Doctor_638198254502047337_1758535512748.png",
+      "s3Url": "https://unipage-website.s3.eu-north-1.amazonaws.com/public/assets_frontend/images/resume_profiles//Plantar_Fasciitis_When_Should_You_See_a_Foot_Doctor_638198254502047337_1758535512748.png",
+      "uploadType": "cv-profile-picture",
+      "uploadPath": "public/assets_frontend/images/resume_profiles/",
+      "size": 1107650,
+      "mimeType": "image/png",
+      "uploadedAt": "2025-09-22T10:05:14.549Z"
     }
   ],
-  "lastUpdated": "2025-09-15T06:44:41.456Z",
-  "totalImages": 158
+  "lastUpdated": "2025-09-22T10:05:14.549Z",
+  "totalImages": 166
 }

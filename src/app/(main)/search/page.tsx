@@ -57,45 +57,45 @@ const [filters, setFilters] = useState<FilterState>({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Debounced search function
-  const debouncedSearch = useCallback(
-    debounce(async (searchFilters, page = 1) => {
-      setLoading(true);
-      
-      try {
-        // Build query string
-        const params = new URLSearchParams();
-        Object.entries(searchFilters).forEach(([key, value]) => {
-          if (value && value !== 'Select Country') {
-            params.append(key, String(value));
-          }
-        });
-
-        params.append('page', String(page));
-        params.append('limit', String(pagination.itemsPerPage));
-
-        
-        // Update URL without page reload
-        const newUrl = `/search?${params.toString()}`;
-        window.history.replaceState({}, '', newUrl);
-        
-        // Fetch results
-        const response = await fetch(`/api/frontend/search?${params}`);
-        const data = await response.json();
-        
-        if (data.success) {
-          setResults(data.data);
-          setPagination(data.pagination);
-          setFilterOptions(data.filters);
+// 1️⃣ Wrap searchFn
+const searchFn = useCallback(
+  async (searchFilters, page = 1) => {
+    setLoading(true);
+    try {
+      const params = new URLSearchParams();
+      Object.entries(searchFilters).forEach(([key, value]) => {
+        if (value && value !== 'Select Country') {
+          params.append(key, String(value));
         }
-      } catch (error) {
-        console.error('Search error:', error);
-      } finally {
-        setLoading(false);
+      });
+
+      params.append('page', String(page));
+      params.append('limit', String(pagination.itemsPerPage));
+
+      const newUrl = `/search?${params.toString()}`;
+      window.history.replaceState({}, '', newUrl);
+
+      const response = await fetch(`/api/frontend/search?${params}`);
+      const data = await response.json();
+
+      if (data.success) {
+        setResults(data.data);
+        setPagination(data.pagination);
+        setFilterOptions(data.filters);
       }
-    }, 500), // Wait 500ms after typing stops
-    [pagination.itemsPerPage]
-  );
+    } catch (error) {
+      console.error('Search error:', error);
+    } finally {
+      setLoading(false);
+    }
+  },
+  [pagination.itemsPerPage] // 👈 dependency
+);
+
+// 2️⃣ Memoize the debounced function
+const debouncedSearch = useMemo(() => debounce(searchFn, 500), [searchFn]);
+
+
 
   // Initial load and when filters change
   useEffect(() => {

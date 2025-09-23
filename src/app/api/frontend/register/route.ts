@@ -67,6 +67,48 @@ export async function POST(req: NextRequest) {
       throw new Error("Failed to insert student");
     }
 
+    const [ getcountry ] = await pool.query("SELECT * FROM countries_db WHERE id = ?", [nationality]);
+    const [ getCity ] = await pool.query("SELECT * FROM cities_db WHERE id = ?", [city])
+
+    const formData = {
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      phone: phone,
+      country: getcountry[0].name,
+      city: getCity[0].name
+    } 
+
+    console.log(JSON.stringify(formData))
+
+    const response = await fetch("https://crm-universitiespage.com/reactapis/api/website_website_student_crm/store", {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${process.env.CRM_API_KEY}`,
+      },
+    })
+
+    console.log(response);
+
+    const data = await response.json();
+
+    if (data?.status_code !== 200) {
+
+      await connection.rollback();
+
+      return NextResponse.json(
+        {
+          message: "Failed to submit your form. Please try again later.",
+          success: false
+        },
+        {
+          status: 500
+        }
+      )
+    }
+
     // ✅ commit transaction
     await connection.commit();
 

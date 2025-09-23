@@ -19,12 +19,12 @@ const DiscountOfferPage = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    percentage: '',
+    lastEducationPer: '',
     phone: '',
-    education: '',
+    lastEducation: '',
     city: '',
     location: '',
-    details: ''
+    familyDetail: ''
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -51,12 +51,12 @@ const DiscountOfferPage = () => {
         setFormData({
           name: '',
           email: '',
-          percentage: '',
+          lastEducationPer: '',
           phone: '',
-          education: '',
+          lastEducation: '',
           city: '',
           location: '',
-          details: ''
+          familyDetail: ''
         });
 
         Swal.fire({
@@ -209,8 +209,8 @@ const DiscountOfferPage = () => {
                   <Input
                     icon={<HiOutlineAcademicCap />}
                     placeholder="Last Education"
-                    name="education"
-                    value={formData.education}
+                    name="lastEducation"
+                    value={formData.lastEducation}
                     onChange={handleChange}
                     required
                   />
@@ -218,8 +218,8 @@ const DiscountOfferPage = () => {
                   <Input
                     icon={<CiPercent />}
                     placeholder="Enter Your Percentage"
-                    name="percentage"
-                    value={formData.percentage}
+                    name="lastEducationPer"
+                    value={formData.lastEducationPer}
                     onChange={handleChange}
                     required
                   />
@@ -254,10 +254,10 @@ const DiscountOfferPage = () => {
                 </div>
                 
                 <textarea
-                  name="details"
-                  value={formData.details}
+                  name="familyDetail"
+                  value={formData.familyDetail}
                   onChange={handleChange}
-                  placeholder="Enter Details"
+                  placeholder="Enter details"
                   className="px-4 py-4 rounded-tl-[30px] rounded-tr-[30px] rounded-br-[30px] bg-[#E7F1F2] text-sm resize-none h-[120px] placeholder-gray-500"
                   required
                 />

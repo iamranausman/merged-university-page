@@ -31,7 +31,7 @@ export async function POST(request) {
       );
     }
 
-    const [result] = await pool.execute(
+    const [result] = await connection.execute(
       `INSERT INTO minhaj_university_leads 
        (full_name, roll_number, department, email, last_education, country, city, interested_country, apply_for, whatsapp_number, created_at) 
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())`,
@@ -43,12 +43,25 @@ export async function POST(request) {
       body: JSON.stringify(body),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.CRM_API_KEY}`,
+        'Authorization': `${process.env.CRM_API_KEY}`,
       },
     })
 
-    if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
+    const data = await response.json();
+
+    if (data?.status_code !== 200) {
+
+      await connection.rollback();
+
+      return NextResponse.json(
+        {
+          message: "Failed to submit your form. Please try again later.",
+          success: false
+        },
+        {
+          status: 500
+        }
+      )
     }
 
     await connection.commit();

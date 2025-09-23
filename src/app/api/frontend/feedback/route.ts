@@ -12,7 +12,13 @@ const ratingMap: Record<number, string> = {
 
 // ------------------ POST feedback ------------------
 export async function POST(req: Request) {
+
+  const connection = await pool.getConnection(); // Start a new connection
+
   try {
+
+    await connection.beginTransaction(); // Start a transaction
+
     const body = await req.json();
     const {
       full_name,
@@ -64,12 +70,59 @@ export async function POST(req: Request) {
       ]
     );
 
+    const feedbackData = {
+      full_name: full_name,
+      contact_number: contact_number,
+      consultant_id: consultant_id,
+      rating: rating,
+      average_rating: average_rating,
+      behaviour_satis_level: behaviourText,
+      timely_response: timelyText,
+      call_response: callText,
+      knowledge: knowledgeText,
+      likelihood: likelihoodText,
+      customer_experience: suggestion || null
+    };
+
+    console.log(JSON.stringify(feedbackData))
+
+    const response = await fetch("https://crm-universitiespage.com/reactapis/api/website_client_feedback_crm/store", {
+      method: "POST",
+      body: JSON.stringify(feedbackData),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${process.env.CRM_API_KEY}`,
+      },
+    })
+
+    const data = await response.json();
+
+    if (data?.status_code !== 200) {
+
+      await connection.rollback();
+
+      return NextResponse.json(
+        {
+          message: "Failed to submit your form. Please try again later.",
+          success: false
+        },
+        {
+          status: 500
+        }
+      )
+    }
+
+    await connection.commit();
+
     return NextResponse.json({
       ok: true,
       message: "Feedback submitted successfully",
       feedback_id: (result as any).insertId,
     });
   } catch (error) {
+
+    await connection.rollback();
+
     console.error("POST /feedbacks error:", error);
     return NextResponse.json(
       { ok: false, message: "Failed to submit feedback" },

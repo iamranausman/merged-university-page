@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
   try{
 
 
-    const [getblogs] = await pool.query<RowDataPacket[]>('SELECT id, title, slug, image, created_at FROM blogs WHERE is_active = 1 ORDER BY created_at DESC LIMIT 3');
+    const [getblogs] = await pool.query<RowDataPacket[]>('SELECT id, title, slug, image, created_at FROM blogs WHERE is_active = 1 AND is_featured=1 ORDER BY created_at DESC LIMIT 8');
 
     if(getblogs.length === 0)
     {

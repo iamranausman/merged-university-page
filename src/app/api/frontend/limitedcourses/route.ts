@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
         u.name AS university
         FROM courses c
         LEFT JOIN university_details u ON c.university_id = u.id
-        WHERE c.popular = 1 ORDER BY c.created_at DESC LIMIT 3`
+        WHERE c.popular = 1 ORDER BY c.created_at DESC LIMIT 5`
     )
 
     if(rows.length > 0)

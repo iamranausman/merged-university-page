@@ -6,7 +6,7 @@ import pool from "../../../../lib/db/db"
 export async function POST(req: NextRequest) {
   try {
     
-    const [rows] = await pool.query<RowDataPacket[]>("SELECT id, name, slug, logo FROM university_details WHERE popular = 1 ORDER BY created_at DESC LIMIT 3")
+    const [rows] = await pool.query<RowDataPacket[]>("SELECT id, name, slug, logo FROM university_details WHERE popular = 1 ORDER BY created_at DESC LIMIT 4")
 
     if(rows.length > 0)
     {

@@ -7,11 +7,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Button from '../atoms/Button';
 import Swal from 'sweetalert2';
-import { FiMapPin, FiPhone, FiMail, FiClock } from 'react-icons/fi';
+import { FiMapPin, FiPhone, FiMail, FiClock, FiArrowRight } from 'react-icons/fi';
 
 const FooterOrganism = () => {
-
-
   const addresses = [
     {
       city: 'Lahore',
@@ -45,7 +43,7 @@ const FooterOrganism = () => {
     }
   ];
 
-  const [selectedCity, setSelectedCity] = useState('');
+  const [selectedCity, setSelectedCity] = useState(null);
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -78,46 +76,70 @@ const FooterOrganism = () => {
   };
 
   return (
-    <footer className="relative bg-gradient-to-b from-[#E7F1F2] to-[#d0e5e7] pt-[160px] mt-28">
-      {/* Newsletter Card - Overlapping */}
-      <div className="absolute -top-24 left-1/2 transform -translate-x-1/2 w-[90%] md:w-[80%] lg:w-[70%] mb-16">
-        <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 border border-teal-100">
-          {/* Left Side */}
-          <div className="flex-1">
-            <p className="text-xs uppercase tracking-wider text-teal-600 font-semibold mb-2">Stay Updated</p>
-            <h3 className="text-2xl font-bold text-gray-800 font-sans mb-4">
-              Get the latest study abroad insights delivered to your inbox!
+    <footer className="relative bg-gradient-to-b from-gray-50 to-white pt-32 mt-60 border-t border-gray-100">
+      {/* Newsletter Card - Enhanced Overlapping Section */}
+      <div className="absolute -top-55 left-1/2 transform -translate-x-1/2 w-[95%] md:w-[85%] lg:w-[75%] xl:w-[65%] mb-16">
+        <div className="bg-gradient-to-r from-[#0B6F78] to-[#0a306b] rounded-2xl shadow-2xl p-8 md:p-10 flex flex-col lg:flex-row items-center justify-between gap-8 relative overflow-hidden">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `radial-gradient(circle at 2px 2px, white 2px, transparent 0)`,
+              backgroundSize: '20px 20px'
+            }}></div>
+          </div>
+          
+          {/* Content */}
+          <div className="flex-1 text-center lg:text-left relative z-10">
+            <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 leading-tight">
+              STAY CONNECTED
             </h3>
-            <div className="flex flex-col sm:flex-row items-center gap-3">
+            <p className="text-white/90 text-lg mb-6 max-w-2xl">
+              Receive the latest university updates, scholarship opportunities, and visa guidance directly in your inbox.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row items-center gap-4 max-w-md lg:max-w-full">
               <div className="relative flex-1 w-full">
                 <input
                   type="email"
                   placeholder="Enter your email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 pl-10 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                  className="w-full px-6 py-4 pl-12 rounded-xl border-0 text-gray-900 text-base focus:outline-none focus:ring-4 focus:ring-white/20 bg-white/95 backdrop-blur-sm"
+                  onKeyPress={(e) => e.key === 'Enter' && handleSubscribe()}
                 />
-                <FiMail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                <FiMail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg" />
               </div>
-              <Button
+              <button
                 onClick={handleSubscribe}
                 disabled={loading}
-                className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-md hover:shadow-lg w-full sm:w-auto"
+                className="bg-white text-[#0a306b] px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl flex items-center gap-2 min-w-[160px] justify-center"
               >
-                {loading ? "Subscribing..." : "Subscribe Now"}
-              </Button>
+                {loading ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-[#0a306b] border-t-transparent rounded-full animate-spin"></div>
+                    Subscribing...
+                  </>
+                ) : (
+                  <>
+                    Subscribe
+                    <FiArrowRight className="text-lg" />
+                  </>
+                )}
+              </button>
             </div>
-            <p className="text-xs text-gray-500 mt-3">We respect your privacy. Unsubscribe at any time.</p>
+            
+            <p className="text-white/70 text-xs mt-4">No spam ever. Unsubscribe anytime with one click.</p>
           </div>
-          {/* Right Side Image */}
-          <div className="hidden md:block flex-shrink-0">
-            <div className="rounded-xl overflow-hidden p-4 flex items-center justify-center bg-teal-50">
+          
+          {/* Illustration */}
+          <div className="hidden lg:block flex-shrink-0 relative z-10">
+            <div className="rounded-2xl overflow-hidden p-6 flex items-center justify-center bg-white/10 backdrop-blur-sm border border-white/20">
               <Image
                 src="/assets/newsletter_img.png"
                 alt="Newsletter illustration"
-                width={160}
-                height={160}
-                className="object-contain"
+                width={180}
+                height={180}
+                className="object-contain filter"
               />
             </div>
           </div>
@@ -126,77 +148,107 @@ const FooterOrganism = () => {
 
       {/* Footer Main Content */}
       <Container>
-        <div className="text-gray-800 px-4 sm:px-6 py-10 space-y-12">
-          {/* Top Section */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="px-4 sm:px-6 py-16 space-y-16">
+          {/* Top Section - Enhanced Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
             {/* Company Info */}
-            <div className="space-y-4">
-              <div className="text-2xl font-bold text-teal-800">Universities Page</div>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Your trusted partner in global education. We help students find the best international opportunities with expert guidance and support.
+            <div className="space-y-6">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-gradient-to-r from-[#0B6F78] to-[#0a306b] rounded-xl flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">UP</span>
+                </div>
+                <div className="text-2xl font-bold text-[#0a306b]">Universities Page</div>
+              </div>
+              
+              <p className="text-gray-600 leading-relaxed">
+                Your premier partner in global education. We empower students to achieve international academic success through expert guidance and comprehensive support.
               </p>
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <FiPhone className="text-teal-600" />
-                <span>+92 123 456 7890</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <FiMail className="text-teal-600" />
-                <span>info@universitiespage.com</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <FiClock className="text-teal-600" />
-                <span>Mon-Fri: 9AM - 6PM</span>
+              
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 text-gray-700">
+                  <div className="w-8 h-8 bg-[#0B6F78]/10 rounded-lg flex items-center justify-center">
+                    <FiPhone className="text-[#0B6F78] text-sm" />
+                  </div>
+                  <span className="font-medium">+92 123 456 7890</span>
+                </div>
+                <div className="flex items-center gap-3 text-gray-700">
+                  <div className="w-8 h-8 bg-[#0B6F78]/10 rounded-lg flex items-center justify-center">
+                    <FiMail className="text-[#0B6F78] text-sm" />
+                  </div>
+                  <span className="font-medium">info@universitiespage.com</span>
+                </div>
+                <div className="flex items-center gap-3 text-gray-700">
+                  <div className="w-8 h-8 bg-[#0B6F78]/10 rounded-lg flex items-center justify-center">
+                    <FiClock className="text-[#0B6F78] text-sm" />
+                  </div>
+                  <span className="font-medium">Mon-Fri: 9AM - 6PM</span>
+                </div>
               </div>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h4 className="font-semibold text-lg mb-5 text-teal-800 border-b pb-2">Quick Links</h4>
-              <div className="grid grid-cols-2 gap-4">
-                <ul className="space-y-3">
-                  <li><Link href="/CountriesGuide" className="text-gray-600 hover:text-teal-600 transition-colors text-sm">Country Guides</Link></li>
-                  <li><Link href="/universities" className="text-gray-600 hover:text-teal-600 transition-colors text-sm">Universities</Link></li>
-                  <li><Link href="/courses" className="text-gray-600 hover:text-teal-600 transition-colors text-sm">Courses</Link></li>
-                  <li><Link href="/blogs" className="text-gray-600 hover:text-teal-600 transition-colors text-sm">Articles</Link></li>
-                </ul>
-                <ul className="space-y-3">
-                  <li><Link href="/services" className="text-gray-600 hover:text-teal-600 transition-colors text-sm">Services</Link></li>
-                  <li><Link href="/visit-visa" className="text-gray-600 hover:text-teal-600 transition-colors text-sm">Visit Visa</Link></li>
-                  <li><Link href="/free-consultation" className="text-gray-600 hover:text-teal-600 transition-colors text-sm">Free Consultation</Link></li>
-                  <li><Link href="/ourteam" className="text-gray-600 hover:text-teal-600 transition-colors text-sm">Our Team</Link></li>
-                </ul>
+              <h4 className="font-bold text-lg mb-6 text-[#0a306b] border-l-4 border-[#0B6F78] pl-3">Quick Links</h4>
+              <div className="grid grid-cols-1 gap-3">
+                {[
+                  { href: "/CountriesGuide", label: "Country Guides" },
+                  { href: "/universities", label: "Universities" },
+                  { href: "/courses", label: "Courses" },
+                  { href: "/blogs", label: "Articles & Blog" },
+                  { href: "/services", label: "Our Services" },
+                  { href: "/visit-visa", label: "Visit Visa" },
+                ].map((link, index) => (
+                  <Link key={index} href={link.href} className="group flex items-center gap-2 text-gray-600 hover:text-[#0B6F78] transition-all duration-300 py-1">
+                    <FiArrowRight className="text-xs opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300" />
+                    <span className="font-medium">{link.label}</span>
+                  </Link>
+                ))}
               </div>
             </div>
 
             {/* Services */}
             <div>
-              <h4 className="font-semibold text-lg mb-5 text-teal-800 border-b pb-2">Our Services</h4>
-              <ul className="space-y-3">
-                <li><Link href="/services" className="text-gray-600 hover:text-teal-600 transition-colors text-sm">University Admissions</Link></li>
-                <li><Link href="/services" className="text-gray-600 hover:text-teal-600 transition-colors text-sm">Visa Assistance</Link></li>
-                <li><Link href="/services" className="text-gray-600 hover:text-teal-600 transition-colors text-sm">Scholarship Guidance</Link></li>
-                <li><Link href="/services" className="text-gray-600 hover:text-teal-600 transition-colors text-sm">Test Preparation</Link></li>
-                <li><Link href="/services" className="text-gray-600 hover:text-teal-600 transition-colors text-sm">Career Counseling</Link></li>
-              </ul>
+              <h4 className="font-bold text-lg mb-6 text-[#0a306b] border-l-4 border-[#0B6F78] pl-3">Our Services</h4>
+              <div className="space-y-3">
+                {[
+                  "University Admissions",
+                  "Visa Assistance",
+                  "Scholarship Guidance",
+                  "Test Preparation",
+                  "Career Counseling",
+                  "Document Processing"
+                ].map((service, index) => (
+                  <div key={index} className="flex items-center gap-3 group cursor-pointer">
+                    <div className="w-2 h-2 bg-[#0B6F78] rounded-full group-hover:scale-150 transition-transform duration-300"></div>
+                    <span className="text-gray-600 font-medium group-hover:text-[#0B6F78] transition-colors duration-300">
+                      {service}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            {/* Follow Us */}
+            {/* Social & App */}
             <div>
-              <h4 className="font-semibold text-lg mb-5 text-teal-800 border-b pb-2">Follow Us</h4>
-              <p className="text-gray-600 text-sm mb-4">Stay connected with us on social media for the latest updates.</p>
-              <div className="mb-6">
+              <h4 className="font-bold text-lg mb-6 text-[#0a306b] border-l-4 border-[#0B6F78] pl-3">Connect With Us</h4>
+              <p className="text-gray-600 mb-6">Follow us for the latest updates and success stories.</p>
+              
+              <div className="mb-8">
                 <SocialIcons />
               </div>
-              <div className="bg-teal-50 p-4 rounded-lg">
-                <p className="text-sm font-medium text-teal-800 mb-2">Download Our App (Coming Soon)</p>
-                <div className="flex gap-2">
-                  <button className="bg-black text-white text-xs py-2 px-3 rounded flex items-center gap-1">
+              
+              {/* App Download */}
+              <div className="bg-gradient-to-r from-[#0B6F78]/5 to-[#0a306b]/5 p-5 rounded-xl border border-[#0B6F78]/10">
+                <p className="font-semibold text-[#0a306b] mb-3">Download Our App</p>
+                <p className="text-gray-600 text-sm mb-4">Get instant access to university information on the go.</p>
+                <div className="flex gap-3">
+                  <button className="flex-1 bg-gray-900 text-white text-sm py-2 px-3 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors">
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
                       <path d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/>
                     </svg>
                     App Store
                   </button>
-                  <button className="bg-black text-white text-xs py-2 px-3 rounded flex items-center gap-1">
+                  <button className="flex-1 bg-gray-900 text-white text-sm py-2 px-3 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors">
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
                       <path d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/>
                     </svg>
@@ -207,114 +259,129 @@ const FooterOrganism = () => {
             </div>
           </div>
 
- {/* Address Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-        {addresses.map((address, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-lg p-4 shadow-md border border-gray-200 hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
-            onClick={() => setSelectedCity(address)}
-          >
-            <div className="flex flex-col items-center text-center">
-              <div className="bg-teal-100 p-3 rounded-full mb-3">
-                <FiMapPin className="text-teal-600 text-xl" />
-              </div>
-              <h3 className="font-semibold text-gray-800 mb-2">{address.city}</h3>
-              <p className="text-sm text-gray-600 line-clamp-2">{address.address}</p>
-              <button className="mt-3 text-teal-600 text-sm font-medium hover:text-teal-700">
-                View Details
-              </button>
+          {/* Global Offices Section */}
+          <div className="space-y-8">
+            <div className="text-center">
+              <h3 className="text-2xl font-bold text-[#0a306b] mb-3">Our Global Offices</h3>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                With strategically located offices worldwide, we provide personalized support to students across the globe
+              </p>
             </div>
-          </div>
-        ))}
-      </div>
 
-      {/* Modal */}
-      {selectedCity && (
-  <div
-    className="fixed inset-0 flex items-center justify-center z-50 p-4"
-    onClick={() => setSelectedCity(null)} // close when clicking outside
-  >
-    <div
-      className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
-      onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
-    >
-      <div className="sticky top-0 bg-white p-6 border-b border-gray-200 rounded-t-xl">
-        <h2 className="text-2xl font-bold text-gray-800">
-          {selectedCity.city} Office
-        </h2>
-      </div>
-
-      <div className="p-6">
-        <div className="flex items-start gap-4 mb-6">
-          <div className="bg-teal-100 p-3 rounded-full flex-shrink-0">
-            <FiMapPin className="text-teal-600 text-xl" />
-          </div>
-          <div>
-            <h3 className="font-semibold text-gray-700 mb-1">Address</h3>
-            <p className="text-gray-600">{selectedCity.address}</p>
-          </div>
-        </div>
-
-        {selectedCity.phones.length > 0 && (
-          <div className="flex items-start gap-4 mb-6">
-            <div className="bg-teal-100 p-3 rounded-full flex-shrink-0">
-              <FiPhone className="text-teal-600 text-xl" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-gray-700 mb-1">Phone Numbers</h3>
-              {selectedCity.phones.map((phone, index) => (
-                <p key={index} className="text-gray-600">{phone}</p>
+            {/* Address Cards Grid - Enhanced */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+              {addresses.map((address, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-xl p-5 shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2 group"
+                  onClick={() => setSelectedCity(address)}
+                >
+                  <div className="flex flex-col items-center text-center h-full">
+                    <div className="w-14 h-14 bg-gradient-to-r from-[#0B6F78] to-[#0a306b] rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <FiMapPin className="text-white text-xl" />
+                    </div>
+                    <h3 className="font-bold text-gray-800 mb-3 text-lg">{address.city}</h3>
+                    <p className="text-gray-600 text-sm leading-relaxed flex-1 mb-4 line-clamp-3">
+                      {address.address}
+                    </p>
+                    <button className="text-[#0B6F78] font-semibold text-sm flex items-center gap-1 group-hover:gap-2 transition-all duration-300">
+                      View Details
+                      <FiArrowRight className="text-xs" />
+                    </button>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
-        )}
-
-        {selectedCity.emails.length > 0 && (
-          <div className="flex items-start gap-4 mb-6">
-            <div className="bg-teal-100 p-3 rounded-full flex-shrink-0">
-              <FiMail className="text-teal-600 text-xl" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-gray-700 mb-1">Email</h3>
-              {selectedCity.emails.map((email, index) => (
-                <p key={index} className="text-gray-600">{email}</p>
-              ))}
-            </div>
-          </div>
-        )}
-
-        <div className="mt-8 pt-6 border-t border-gray-200">
-          <div className="flex gap-3">
-            <button
-  onClick={() => setSelectedCity(null)}
-  className="bg-teal-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-teal-700 transition-colors"
->
-  Close
-</button>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-)}
-
         </div>
       </Container>
 
-      {/* Bottom Bar */}
-      <div className="bg-teal-800 mt-10">
+      {/* Office Details Modal */}
+      {selectedCity && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 p-4 bg-black/50 backdrop-blur-sm" onClick={() => setSelectedCity(null)}>
+          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <div className="sticky top-0 bg-gradient-to-r from-[#0B6F78] to-[#0a306b] p-6 text-white rounded-t-2xl">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold">{selectedCity.city} Office</h2>
+                <button onClick={() => setSelectedCity(null)} className="text-white hover:text-gray-200 text-2xl">
+                  ×
+                </button>
+              </div>
+            </div>
+
+            <div className="p-6 space-y-6">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-[#0B6F78]/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <FiMapPin className="text-[#0B6F78] text-xl" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-800 mb-2 text-lg">Office Address</h3>
+                  <p className="text-gray-600 leading-relaxed">{selectedCity.address}</p>
+                </div>
+              </div>
+
+              {selectedCity.phones.length > 0 && (
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-[#0B6F78]/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <FiPhone className="text-[#0B6F78] text-xl" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-800 mb-2 text-lg">Contact Numbers</h3>
+                    <div className="space-y-1">
+                      {selectedCity.phones.map((phone, index) => (
+                        <p key={index} className="text-gray-600 font-medium">{phone}</p>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {selectedCity.emails.length > 0 && (
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-[#0B6F78]/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <FiMail className="text-[#0B6F78] text-xl" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-800 mb-2 text-lg">Email Address</h3>
+                    <div className="space-y-1">
+                      {selectedCity.emails.map((email, index) => (
+                        <p key={index} className="text-gray-600 font-medium">{email}</p>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div className="flex justify-end pt-6 border-t border-gray-200">
+                <button
+                  onClick={() => setSelectedCity(null)}
+                  className="bg-gradient-to-r from-[#0B6F78] to-[#0a306b] text-white px-6 py-3 rounded-xl font-semibold hover:from-[#0a306b] hover:to-[#0B6F78] transition-all duration-300"
+                >
+                  Close Details
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Bottom Bar - Enhanced */}
+      <div className="bg-gradient-to-r from-[#0B6F78] to-[#0a306b] mt-12">
         <Container>
-          <div className="text-white py-5 px-4 text-sm flex flex-col md:flex-row justify-between items-center gap-3">
-            <div className="flex items-center gap-2">
+          <div className="text-white py-6 px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="flex items-center gap-3 text-sm md:text-base">
               <span>© {new Date().getFullYear()} Universities Page. All rights reserved.</span>
             </div>
-            <div className="flex flex-wrap gap-5 justify-center">
-              <Link href="/terms-and-condition" className="hover:text-teal-200 transition-colors">Terms & Conditions</Link>
-              <Link href="/privacy-policy" className="hover:text-teal-200 transition-colors">Privacy Policy</Link>
-              <Link href="/feedback" className="hover:text-teal-200 transition-colors">Feedback</Link>
-              <Link href="/jobs" className="hover:text-teal-200 transition-colors">Careers</Link>
+            <div className="flex flex-wrap gap-6 justify-center text-sm">
+              {['Terms & Conditions', 'Privacy Policy', 'Feedback', 'Careers', 'Sitemap'].map((item, index) => (
+                <Link 
+                  key={index} 
+                  href={`/${item.toLowerCase().replace(' & ', '-').replace(' ', '-')}`} 
+                  className="hover:text-gray-200 transition-colors duration-300 font-medium"
+                >
+                  {item}
+                </Link>
+              ))}
             </div>
           </div>
         </Container>

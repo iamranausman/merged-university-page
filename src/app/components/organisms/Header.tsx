@@ -97,7 +97,9 @@ const Header = () => {
   const [touchDevice, setTouchDevice] = useState(false);
   const [wishlistLoaded, setWishlistLoaded] = useState(false);
   const [mobileSubmenu, setMobileSubmenu] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false);
   const mobileMenuRef = useRef(null);
+  const headerRef = useRef(null);
 
   const { user, fetchUser, logout, isLoggedIn } = useUserStore();
 
@@ -106,6 +108,17 @@ const Header = () => {
       fetchUser();
     }
   }, [isLoggedIn]);
+
+  // Scroll effect for sticky header
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     // Close mobile menu when clicking outside
@@ -192,80 +205,83 @@ const Header = () => {
   };
 
   return (
-    <header className="relative z-50 font-sans">
+    <header className="relative z-50 font-sans" ref={headerRef}>
       {/* Top Bar */}
-      <div className="bg-gradient-to-r from-[#005F5A] via-[#005F5A] to-[#E4EFF0] text-white py-2 text-sm">
-
+      <div className="bg-gradient-to-r from-[#0B6F78] to-[#0a306b] text-white py-2 text-sm">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center space-x-4 mb-2 md:mb-0">
-              <a href="mailto:info@universitiespage.com" className="flex items-center hover:text-teal-200 transition-colors">
-                <FaEnvelope className="mr-1" />
+              <a href="mailto:info@universitiespage.com" className="flex items-center hover:text-gray-200 transition-colors">
+                <FaEnvelope className="mr-2 text-sm" />
                 <span>info@universitiespage.com</span>
               </a>
-              <span className="hidden md:inline">|</span>
-              <Link href="/feedback" className="hover:text-teal-200 transition-colors">
+              <span className="hidden md:inline text-white/50">|</span>
+              <Link href="/feedback" className="hover:text-gray-200 transition-colors">
                 Give Feedback
               </Link>
             </div>
             
-            <div className="flex items-center space-x-4">
-              <span className="hidden md:inline">Follow us:</span>
-             <div className="flex space-x-3">
-  {/* Facebook */}
-  <a 
-    href="https://www.facebook.com/universitiespagelahore" 
-    target="_blank" 
-    rel="noopener noreferrer"
-    className="w-6 h-6 flex items-center justify-center rounded-full bg-[#1877F2] text-white hover:opacity-80 transition"
-  >
-    <FaFacebookF className="w-4 h-4" />
-  </a>
+            <div className="flex items-center space-x-3">
+              <span className="hidden md:inline text-white/80">Follow us:</span>
+              <div className="flex space-x-2">
+                {/* Facebook */}
+                <a 
+                  href="https://www.facebook.com/universitiespagelahore" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-6 h-6 flex items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 transition-all duration-300"
+                >
+                  <FaFacebookF className="w-3 h-3" />
+                </a>
 
-  {/* Twitter (X) */}
-  <a 
-    href="https://twitter.com/UniversitiesPa1" 
-    target="_blank" 
-    rel="noopener noreferrer"
-    className="w-6 h-6 flex items-center justify-center rounded-full bg-[#1DA1F2] text-white hover:opacity-80 transition"
-  >
-    <FaTwitter className="w-4 h-4" />
-  </a>
+                {/* Twitter (X) */}
+                <a 
+                  href="https://twitter.com/UniversitiesPa1" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-6 h-6 flex items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 transition-all duration-300"
+                >
+                  <FaTwitter className="w-3 h-3" />
+                </a>
 
-  {/* Instagram (gradient look with fallback color) */}
-  <a 
-    href="https://www.instagram.com/universitiespage_official/" 
-    target="_blank" 
-    rel="noopener noreferrer"
-    className="w-6 h-6 flex items-center justify-center rounded-full bg-gradient-to-tr from-[#f58529] via-[#dd2a7b] to-[#8134af] text-white hover:opacity-80 transition"
-  >
-    <FaInstagram className="w-4 h-4" />
-  </a>
+                {/* Instagram */}
+                <a 
+                  href="https://www.instagram.com/universitiespage_official/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-6 h-6 flex items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 transition-all duration-300"
+                >
+                  <FaInstagram className="w-3 h-3" />
+                </a>
 
-  {/* LinkedIn */}
-  <a 
-    href="https://linkedin.com/in/universities-page-4728301b5" 
-    target="_blank" 
-    rel="noopener noreferrer"
-    className="w-6 h-6 flex items-center justify-center rounded-full bg-[#0077B5] text-white hover:opacity-80 transition"
-  >
-    <FaLinkedinIn className="w-4 h-4" />
-  </a>
-</div>
-
+                {/* LinkedIn */}
+                <a 
+                  href="https://linkedin.com/in/universities-page-4728301b5" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-6 h-6 flex items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 transition-all duration-300"
+                >
+                  <FaLinkedinIn className="w-3 h-3" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Desktop Header */}
-      <div className="hidden lg:block bg-white shadow-sm border-b border-gray-100">
+      <div className={`hidden lg:block bg-white shadow-sm border-b border-gray-100 transition-all duration-300 ${isScrolled ? 'sticky top-0 shadow-lg' : ''}`}>
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between py-4 text-sm">
+          <div className="flex items-center justify-between py-3">
             {/* Logo */}
-            <div className="flex-shrink-0">
-              <div className="text-2xl font-bold text-blue-900">UniversitiesPage</div>
-            </div>
+            <Link href="/" className="flex-shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-gradient-to-r from-[#0B6F78] to-[#0a306b] rounded-xl flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">UP</span>
+                </div>
+                <div className="text-1xl font-bold text-[#0a306b]">UniversitiesPage</div>
+              </div>
+            </Link>
 
             {/* Navigation */}
             <nav className="flex items-center space-x-1">
@@ -280,28 +296,28 @@ const Header = () => {
                     <div className="flex items-center">
                       <Link
                         href={category.href}
-                        className="flex items-center text-gray-700 hover:text-teal-600 transition-colors px-3 py-2 text-sm font-medium rounded-md hover:bg-gray-50"
+                        className="flex items-center text-gray-700 hover:text-[#0B6F78] transition-colors px-4 py-2 text-sm font-medium rounded-lg hover:bg-gray-50 group"
                       >
                         {category.name}
-                        <HiChevronDown className="w-4 h-4 ml-1" />
+                        <HiChevronDown className="w-4 h-4 ml-1 group-hover:rotate-180 transition-transform duration-200" />
                       </Link>
                     </div>
                   ) : (
                     <Link
                       href={category.href}
-                      className="text-gray-700 hover:text-teal-600 transition-colors px-3 py-2 text-sm font-medium rounded-md hover:bg-gray-50 block"
+                      className="text-gray-700 hover:text-[#0B6F78] transition-colors px-4 py-2 text-sm font-medium rounded-lg hover:bg-gray-50 block"
                     >
                       {category.name}
                     </Link>
                   )}
                   
                   {category.hasDropdown && activeCategory === category.name && (
-                    <div className="absolute left-0 mt-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-50 dropdown-menu py-2">
+                    <div className="absolute left-0 top-full w-56 bg-white border border-gray-200 rounded-xl shadow-2xl z-50 dropdown-menu py-2 animate-fade-in">
                       {category.items.map((item) => (
                         <Link
                           key={item.name}
                           href={item.href}
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 transition-colors"
+                          className="block px-4 py-3 text-sm text-gray-700 hover:bg-[#0B6F78]/5 hover:text-[#0B6F78] transition-colors border-b border-gray-100 last:border-b-0"
                           onClick={() => setActiveCategory(null)}
                         >
                           {item.name}
@@ -315,6 +331,7 @@ const Header = () => {
 
             {/* Right Side */}
             <div className="flex items-center gap-4">
+              {/* Wishlist */}
               <div className="relative wishlist-dropdown">
                 <button 
                   onClick={async () => {
@@ -324,26 +341,26 @@ const Header = () => {
                     }
                     setShowWishlist(v => !v);
                   }}
-                  className="flex items-center text-gray-600 hover:text-teal-600 transition-colors relative p-2"
+                  className="flex items-center text-gray-600 hover:text-[#0B6F78] transition-colors relative p-2 rounded-lg hover:bg-gray-50 group"
                 >
-                  <FaHeart className="text-lg mr-1" />
+                  <FaHeart className="text-lg mr-2 group-hover:scale-110 transition-transform" />
                   <span className="text-sm font-medium">Wishlist</span>
                   {wishlist.length > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                    <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
                       {wishlist.length}
                     </span>
                   )}
                 </button>
                 {showWishlist && (
-                  <div className="absolute right-0 mt-2 w-80 bg-white border border-gray-200 rounded-xl shadow-lg z-50 p-4">
-                    <div className="font-semibold text-gray-800 mb-3">Wishlist ({wishlist.length})</div>
+                  <div className="absolute right-0 mt-2 w-80 bg-white border border-gray-200 rounded-xl shadow-2xl z-50 p-4 animate-fade-in">
+                    <div className="font-semibold text-gray-800 mb-3 text-lg">My Wishlist ({wishlist.length})</div>
                     {wishlist.length === 0 ? (
-                      <div className="text-gray-500 text-sm py-4 text-center">No items in your wishlist</div>
+                      <div className="text-gray-500 text-sm py-6 text-center">No items in your wishlist yet</div>
                     ) : (
                       <>
-                        <ul className="max-h-60 overflow-y-auto divide-y divide-gray-100 mb-3">
+                        <ul className="max-h-60 overflow-y-auto divide-y divide-gray-100 mb-4">
                           {wishlist.slice(0, 5).map((item, idx) => (
-                            <li key={item.key || idx} className="py-3 flex items-start gap-3">
+                            <li key={item.key || idx} className="py-3 flex items-start gap-3 hover:bg-gray-50 rounded-lg px-2">
                               <div className="flex-1 min-w-0">
                                 <p className="font-medium text-gray-800 text-sm truncate">
                                   {item.title || item.name || 'Unnamed Item'}
@@ -356,7 +373,7 @@ const Header = () => {
                           ))}
                         </ul>
                         <button
-                          className="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 transition text-sm font-medium"
+                          className="w-full bg-gradient-to-r from-[#0B6F78] to-[#0a306b] text-white py-2.5 rounded-lg hover:from-[#0a306b] hover:to-[#0B6F78] transition-all duration-300 text-sm font-semibold"
                           onClick={() => { setShowWishlist(false); router.push('/wishlist'); }}
                         >
                           View All Wishlist Items
@@ -372,12 +389,12 @@ const Header = () => {
                 {!isLoggedIn ? (
                   <div className="flex items-center gap-3">
                     <Link href="/student-login">
-                      <button className="border border-teal-600 text-teal-600 text-center p-1.5 rounded-md font-medium">
+                      <button className="border border-[#0B6F78] text-[#0B6F78] hover:bg-[#0B6F78] hover:text-white text-center px-4 py-2 rounded-lg font-medium transition-all duration-300">
                         Student Login
                       </button>
                     </Link>
                     <Link href="/consultant-register">
-                      <button className="text-sm bg-teal-600 text-white hover:bg-teal-700 font-medium px-4 py-1.5 rounded-md transition-colors">
+                      <button className="bg-gradient-to-r from-[#0B6F78] to-[#0a306b] text-white hover:from-[#0a306b] hover:to-[#0B6F78] font-medium px-4 py-2 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg">
                         Consultant
                       </button>
                     </Link>
@@ -386,26 +403,26 @@ const Header = () => {
                   <div className="relative">
                     <button
                       onClick={() => setShowMenu(!showMenu)}
-                      className="flex items-center gap-2 cursor-pointer px-3 py-1.5 rounded-md bg-gray-50 hover:bg-gray-100 transition-colors border border-gray-200"
+                      className="flex items-center gap-2 cursor-pointer px-4 py-2 rounded-lg bg-white border border-gray-200 hover:border-[#0B6F78] transition-all duration-300 shadow-sm hover:shadow-md"
                     >
-                      <FaUserCircle className="text-teal-600 text-xl" />
+                      <FaUserCircle className="text-[#0B6F78] text-xl" />
                       <span className="text-sm font-medium text-gray-700 max-w-xs truncate" style={{maxWidth: '120px'}}>
                         {user?.name}
                       </span>
-                      <HiChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${showMenu ? 'rotate-180' : ''}`} />
+                      <HiChevronDown className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${showMenu ? 'rotate-180' : ''}`} />
                     </button>
                     
                     {showMenu && (
-                      <div className="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-xl shadow-lg z-50 py-2 animate-fade-in">
-                        <div className="px-4 py-3 border-b border-gray-100">
-                          <p className="text-sm font-medium text-gray-800">Welcome back</p>
+                      <div className="absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-xl shadow-2xl z-50 py-2 animate-fade-in">
+                        <div className="px-4 py-3 border-b border-gray-100 bg-gradient-to-r from-[#0B6F78]/5 to-[#0a306b]/5">
+                          <p className="text-sm font-semibold text-gray-800">Welcome back</p>
                           <p className="text-sm text-gray-600 truncate">{user?.email}</p>
                         </div>
                         
                         {user?.role !== 'admin' && (
                           <button
                             onClick={handleDashboard}
-                            className="flex items-center gap-3 w-full px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 transition-colors"
+                            className="flex items-center gap-3 w-full px-4 py-3 text-sm text-gray-700 hover:bg-[#0B6F78]/5 hover:text-[#0B6F78] transition-colors duration-200"
                           >
                             <FaUser className="text-gray-500" />
                             Dashboard
@@ -414,7 +431,7 @@ const Header = () => {
                         
                         <button
                           onClick={handleLogout}
-                          className="flex items-center gap-3 w-full px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                          className="flex items-center gap-3 w-full px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors duration-200 border-t border-gray-100"
                         >
                           <FaSignOutAlt />
                           Logout
@@ -429,23 +446,36 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Header */}
-      <div className="lg:hidden bg-white border-b border-gray-200 sticky top-0 z-40">
+      {/* Mobile Header - Enhanced Sticky */}
+      <div className={`lg:hidden bg-white border-b border-gray-200 transition-all duration-300 ${isScrolled ? 'sticky top-0 shadow-lg z-40' : 'sticky top-0 z-40'}`}>
         <div className="flex items-center justify-between p-4">
           <button 
             onClick={() => setIsOpen(true)}
-            className="p-2 rounded-md text-gray-700 hover:bg-gray-100"
+            className="p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200"
           >
             <HiMenu className="w-6 h-6" />
           </button>
           
           <Link href="/" onClick={() => setIsOpen(false)}>
-            <div className="flex-shrink-0">
-              <div className="text-xl font-bold text-blue-900">UniversitiesPage</div>
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-gradient-to-r from-[#0B6F78] to-[#0a306b] rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">UP</span>
+              </div>
+              <div className="text-lg font-bold text-[#0a306b]">UniversitiesPage</div>
             </div>
           </Link>
           
           <div className="flex items-center gap-3">
+            {/* Mobile Wishlist */}
+            {isLoggedIn && wishlist.length > 0 && (
+              <Link href="/wishlist" className="relative p-2">
+                <FaHeart className="w-5 h-5 text-red-500" />
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs font-bold">
+                  {wishlist.length}
+                </span>
+              </Link>
+            )}
+            
             {isLoggedIn && (
               <button 
                 onClick={() => setShowMenu(!showMenu)}
@@ -459,23 +489,23 @@ const Header = () => {
 
         {/* Mobile user menu dropdown */}
         {showMenu && isLoggedIn && (
-          <div className="absolute top-full left-0 right-0 bg-white border-b border-gray-200 shadow-md z-50 px-4 py-3">
+          <div className="absolute top-full left-0 right-0 bg-white border-b border-gray-200 shadow-lg z-50 px-4 py-3 animate-fade-in">
             <div className="mb-3">
-              <p className="text-sm font-medium text-gray-800">Signed in as</p>
+              <p className="text-sm font-semibold text-gray-800">Signed in as</p>
               <p className="text-sm text-gray-600 truncate">{user?.email}</p>
             </div>
             <div className="flex flex-col space-y-2">
               {user?.role !== 'admin' && (
                 <button
                   onClick={handleDashboard}
-                  className="text-left py-2 px-3 text-sm text-gray-700 rounded-md hover:bg-gray-100"
+                  className="text-left py-2 px-3 text-sm text-gray-700 rounded-md hover:bg-gray-100 transition-colors"
                 >
                   Dashboard
                 </button>
               )}
               <button
                 onClick={handleLogout}
-                className="text-left py-2 px-3 text-sm text-red-600 rounded-md hover:bg-red-50"
+                className="text-left py-2 px-3 text-sm text-red-600 rounded-md hover:bg-red-50 transition-colors"
               >
                 Logout
               </button>
@@ -484,51 +514,59 @@ const Header = () => {
         )}
       </div>
 
-      {/* Mobile Sidebar */}
+      {/* Mobile Sidebar - Enhanced */}
       <div 
         ref={mobileMenuRef}
         className={`lg:hidden fixed inset-0 z-50 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out`}
       >
-        <div className="absolute inset-0 bg-black bg-opacity-50" onClick={() => setIsOpen(false)}></div>
-        <div className="relative w-80 h-full bg-white overflow-y-auto">
-          <div className="flex items-center justify-between p-4 border-b border-gray-200">
-            <div className="text-xl font-bold text-blue-900">StudyAbroad</div>
+        <div className="absolute inset-0 bg-black/20" onClick={() => setIsOpen(false)}></div>
+        <div className="relative w-80 h-full bg-white overflow-y-auto shadow-2xl">
+          {/* Header */}
+          <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gradient-to-r from-[#0B6F78] to-[#0a306b] text-white">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">UP</span>
+              </div>
+              <div className="text-lg font-bold">UniversitiesPage</div>
+            </div>
             <button 
               onClick={() => setIsOpen(false)}
-              className="p-2 rounded-full hover:bg-gray-100"
+              className="p-2 rounded-full hover:bg-white/10 transition-colors"
             >
               <HiX className="w-5 h-5" />
             </button>
           </div>
 
+          {/* Content */}
           <div className="p-4">
             {!isLoggedIn ? (
-              <div className="mb-6">
+              <div className="mb-6 bg-gradient-to-r from-[#0B6F78]/5 to-[#0a306b]/5 rounded-xl p-4">
                 <p className="text-sm text-gray-600 mb-3">Sign in to access your account</p>
                 <div className="flex flex-col gap-2">
                   <Link 
                     href="/student-login" 
                     onClick={() => setIsOpen(false)}
-                    className="bg-teal-600 text-white text-center py-2.5 rounded-md font-medium"
+                    className="bg-gradient-to-r from-[#0B6F78] to-[#0a306b] text-white text-center py-3 rounded-lg font-semibold transition-all duration-300"
                   >
                     Student Login
                   </Link>
                   <Link 
                     href="/consultant-register" 
                     onClick={() => setIsOpen(false)}
-                    className="border border-teal-600 text-teal-600 text-center py-2.5 rounded-md font-medium"
+                    className="border border-[#0B6F78] text-[#0B6F78] text-center py-3 rounded-lg font-semibold transition-all duration-300"
                   >
                     Consultant Register
                   </Link>
                 </div>
               </div>
             ) : (
-              <div className="mb-6 p-3 bg-gray-50 rounded-lg">
-                <p className="font-medium text-gray-800">{user?.name}</p>
+              <div className="mb-6 p-4 bg-gradient-to-r from-[#0B6F78]/5 to-[#0a306b]/5 rounded-xl">
+                <p className="font-semibold text-gray-800">{user?.name}</p>
                 <p className="text-sm text-gray-600 truncate">{user?.email}</p>
               </div>
             )}
 
+            {/* Navigation */}
             <nav className="space-y-1">
               {navCategories.map((category) => (
                 <div key={category.name}>
@@ -536,14 +574,14 @@ const Header = () => {
                     <>
                       <button
                         onClick={() => setMobileSubmenu(mobileSubmenu === category.name ? null : category.name)}
-                        className="flex items-center justify-between w-full py-3 px-3 text-gray-700 hover:bg-gray-50 rounded-md text-left font-medium"
+                        className="flex items-center justify-between w-full py-3 px-3 text-gray-700 hover:bg-gray-50 rounded-lg text-left font-semibold transition-colors duration-200"
                       >
                         <span>{category.name}</span>
-                        <HiChevronRight className={`w-4 h-4 transition-transform ${mobileSubmenu === category.name ? 'rotate-90' : ''}`} />
+                        <HiChevronRight className={`w-4 h-4 transition-transform duration-200 ${mobileSubmenu === category.name ? 'rotate-90' : ''}`} />
                       </button>
                       
                       {mobileSubmenu === category.name && (
-                        <div className="pl-6 mt-1 space-y-1">
+                        <div className="pl-6 mt-1 space-y-1 animate-fade-in">
                           {category.items.map((item) => (
                             <Link
                               key={item.name}
@@ -552,7 +590,7 @@ const Header = () => {
                                 setIsOpen(false);
                                 setMobileSubmenu(null);
                               }}
-                              className="block py-2.5 px-3 text-gray-600 hover:bg-gray-50 rounded-md text-sm"
+                              className="block py-2.5 px-3 text-gray-600 hover:bg-gray-50 rounded-md text-sm transition-colors duration-200"
                             >
                               {item.name}
                             </Link>
@@ -564,7 +602,7 @@ const Header = () => {
                     <Link
                       href={category.href}
                       onClick={() => setIsOpen(false)}
-                      className="block py-3 px-3 text-gray-700 hover:bg-gray-50 rounded-md font-medium"
+                      className="block py-3 px-3 text-gray-700 hover:bg-gray-50 rounded-lg font-semibold transition-colors duration-200"
                     >
                       {category.name}
                     </Link>
@@ -573,11 +611,12 @@ const Header = () => {
               ))}
             </nav>
 
+            {/* Additional Links */}
             <div className="mt-8 pt-6 border-t border-gray-200">
               <Link 
                 href="/wishlist" 
                 onClick={() => setIsOpen(false)}
-                className="flex items-center py-2.5 px-3 text-gray-700 hover:bg-gray-50 rounded-md font-medium"
+                className="flex items-center py-2.5 px-3 text-gray-700 hover:bg-gray-50 rounded-lg font-semibold transition-colors duration-200 mb-2"
               >
                 <FaHeart className="text-red-500 mr-3" />
                 Wishlist {wishlist.length > 0 && `(${wishlist.length})`}
@@ -591,7 +630,7 @@ const Header = () => {
                         handleDashboard();
                         setIsOpen(false);
                       }}
-                      className="flex items-center w-full py-2.5 px-3 text-gray-700 hover:bg-gray-50 rounded-md text-left font-medium"
+                      className="flex items-center w-full py-2.5 px-3 text-gray-700 hover:bg-gray-50 rounded-lg text-left font-semibold transition-colors duration-200"
                     >
                       <FaUser className="text-gray-500 mr-3" />
                       Dashboard
@@ -602,7 +641,7 @@ const Header = () => {
                       handleLogout();
                       setIsOpen(false);
                     }}
-                    className="flex items-center w-full py-2.5 px-3 text-red-600 hover:bg-red-50 rounded-md text-left font-medium"
+                    className="flex items-center w-full py-2.5 px-3 text-red-600 hover:bg-red-50 rounded-lg text-left font-semibold transition-colors duration-200 mt-2"
                   >
                     <FaSignOutAlt className="mr-3" />
                     Logout
@@ -613,6 +652,16 @@ const Header = () => {
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes fade-in {
+          from { opacity: 0; transform: translateY(-10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.2s ease-out;
+        }
+      `}</style>
     </header>
   );
 };

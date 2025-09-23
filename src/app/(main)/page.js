@@ -5,6 +5,7 @@ import PopularCourses from "../components/organisms/PopularCourses";
 import LatestArticles from "../components/organisms/LatestArticles";
 import "../globals.css"; // Import global styles
 import BrowseCourses from "../components/organisms/BrowseCourses";
+import StudentReviews from "../components/organisms/StudentReviews";
 import CountryList from "../components/molecules/country";
 
 export async function generateMetadata() {
@@ -102,11 +103,12 @@ export default async function Home() {
     <div>
       <Hero />
        
-      <div className=" complete-page-spaceing banner-bottom-space bg-white mt-30">
+      <div className=" complete-page-spaceing banner-bottom-space bg-white">
         <PopularUniversities data={uniData} />
         <CountryList />
         <PopularCourses data={courseData} />
         <BrowseCourses />
+        <StudentReviews />
         <LatestArticles data={blogData} />
       </div>
     </div>

@@ -33,7 +33,7 @@ export async function POST(req) {
       Key: s3Key, // Use the generated S3 key with path
       Body: buffer,
       ContentType: file.type,
-      //ACL: 'public-read', // Removed because bucket does not allow ACLs
+      ACL: 'public-read', // Removed because bucket does not allow ACLs
     };
 
    await s3.send(new PutObjectCommand(uploadParams));

@@ -2,7 +2,13 @@ import pool from '../../../../lib/db/db';
 import { NextResponse } from 'next/server';
 
 export async function POST(request) {
+
+  const connection = await pool.getConnection(); // Start a new connection
+
   try {
+
+    await connection.beginTransaction(); // Start a transaction
+
     const body = await request.json();
     const {
       full_name,
@@ -32,6 +38,21 @@ export async function POST(request) {
       [full_name, roll_number, department, email, last_education, country, city, interested_country, apply_for, whatsapp_number]
     );
 
+    const response = await fetch("https://crm-universitiespage.com/reactapis/api/website_minhaj_leads_crm/store", {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.CRM_API_KEY}`,
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+
+    await connection.commit();
+
     return NextResponse.json({
       success: true,
       message: 'Lead created successfully',
@@ -51,10 +72,18 @@ export async function POST(request) {
     }, { status: 201 });
 
   } catch (error) {
+
+    await connection.rollback();
+
     console.error('Error creating lead:', error);
     return NextResponse.json(
       { success: false, message: 'Failed to create lead', error: error.message },
       { status: 500 }
     );
+
+  } finally {
+    // Always release the connection back to the pool
+    connection.release();
+
   }
 }

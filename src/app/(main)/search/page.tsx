@@ -57,7 +57,7 @@ const [filters, setFilters] = useState<FilterState>({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-// 1️⃣ Wrap searchFn
+
 const searchFn = useCallback(
   async (searchFilters, page = 1) => {
     setLoading(true);
@@ -89,10 +89,9 @@ const searchFn = useCallback(
       setLoading(false);
     }
   },
-  [pagination.itemsPerPage] // 👈 dependency
+  [pagination.itemsPerPage] 
 );
 
-// 2️⃣ Memoize the debounced function
 const debouncedSearch = useMemo(() => debounce(searchFn, 500), [searchFn]);
 
 

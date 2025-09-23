@@ -23,7 +23,8 @@ const ArticleCard = ({ article }) => {
   const excerpt = article.excerpt || article.short_description || '';
 
   const handleArticleClick = () => {
-    router.push(`/${article.slug}`);
+    const slug = slugify(article.title);
+    router.push(`/${slug}`);
   };
 
   const categoryColor =
